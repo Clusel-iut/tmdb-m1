@@ -5,12 +5,13 @@
 export const environment = {
   production: false,
   firebase:  {
-    apiKey: "XXX",
-    authDomain: "XXX",
-    databaseURL: "XXX",
-    projectId: "XXX",
-    storageBucket: "XXX",
-    messagingSenderId: "XXX"
+    apiKey: "AIzaSyA158HFsLuHselNzuSelLKE3BDoCu51g3M",
+    authDomain: "movies-ec425.firebaseapp.com",
+    databaseURL: "https://movies-ec425.firebaseio.com",
+    projectId: "movies-ec425",
+    storageBucket: "",
+    messagingSenderId: "532779653354"
+
   }
 };
 
