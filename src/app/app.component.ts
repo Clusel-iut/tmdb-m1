@@ -27,7 +27,7 @@ export class AppComponent {
     });
     setTimeout( () =>
       tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-          .getMovie(13)
+        .getMovie(13)
           .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
