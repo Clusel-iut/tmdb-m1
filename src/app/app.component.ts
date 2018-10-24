@@ -22,7 +22,7 @@ export class AppComponent {
       this._user = u;
       const listsPath = `lists/${u.uid}`;
       const lists = db.list(listsPath);
-      lists.push('coucou');
+
       this.dbData = lists.valueChanges();
     });
     setTimeout( () =>
