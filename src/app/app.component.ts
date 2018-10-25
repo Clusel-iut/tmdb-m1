@@ -22,11 +22,11 @@ export class AppComponent {
       this._user = u;
       const listsPath = `lists/${u.uid}`;
       const lists = db.list(listsPath);
-      lists.push('coucou');
+
       this.dbData = lists.valueChanges();
     });
     setTimeout( () =>
-      tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
+        tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
           .getMovie(13)
           .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
           .catch( err => console.error('Error getting movie:', err) ),

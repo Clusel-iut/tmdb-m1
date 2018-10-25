@@ -6,6 +6,8 @@ import {SearchMovieQuery, SearchMovieResponse} from './tmdb-data/searchMovie';
 import {SearchPeopleQuery, SearchPeopleResponse} from './tmdb-data/SearchPeople';
 import {TVQuery, TVResponse} from './tmdb-data/TV';
 import {SearchTVQuery, SearchTVResponse} from './tmdb-data/SearchTV';
+import {CreditsResult} from './tmdb-data/MovieCredits';
+import {TrendingResult} from './tmdb-data/Trending';
 
 const tmdbApi = 'https://api.themoviedb.org/3';
 type HTTP_METHOD = 'GET' | 'POST' | 'DELETE' | 'PUT';
@@ -51,6 +53,18 @@ export class TmdbService {
   async searchMovie(query: SearchMovieQuery): Promise<SearchMovieResponse> {
     const url = `${tmdbApi}/search/movie`;
     const res = await this.get<SearchMovieResponse>(url, query);
+    return res.body;
+  }
+
+  async getCredits(id: number): Promise<CreditsResult> {
+    const url = `${tmdbApi}/movie/${id}/credits`;
+    const res = await this.get<CreditsResult>(url, null);
+    return res.body;
+  }
+
+  async getTrendingMovies(): Promise<TrendingResult> {
+    const url = `${tmdbApi}/trending/movie/day`;
+    const res = await this.get<TrendingResult>(url, null);
     return res.body;
   }
 
