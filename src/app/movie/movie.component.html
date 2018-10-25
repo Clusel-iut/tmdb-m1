@@ -1,0 +1,19 @@
+<section *ngIf="movie">
+  <img [src]="getPath(movie.poster_path)" />
+  <h1>{{movie.title}}</h1>
+  <div>
+    Ce film appartient aux genres :
+  </div>
+  <div *ngFor="let genre of movie.genres">
+      {{genre.name}}
+  </div>
+  <div *ngFor="let cast of credits.cast | slice:0:10">
+      {{cast.character}} : {{cast.name}}
+  </div>
+
+</section>
+
+<section *ngIf="!movie">
+  Pas encore de films à afficher...
+</section>
+

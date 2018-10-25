@@ -1,0 +1,11 @@
+<ul>
+  <li *ngFor="let movie of trendings.results | slice:0:10">
+    {{movie.title}}
+    <img [src]="getPath(movie.poster_path)" />
+
+  </li>
+</ul>
+
+<section *ngIf="!trendings">
+  Aucun film en tendance ...
+</section>
