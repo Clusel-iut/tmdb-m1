@@ -8,7 +8,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-// import { UserComponent } from './user/user.component';
+import { UserComponent } from './user/user.component';
 import { MovieComponent } from './movie/movie.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
@@ -16,7 +16,7 @@ import { ListMoviesComponent } from './list-movies/list-movies.component';
 @NgModule({
   declarations: [
     AppComponent,
-    // UserComponent,
+    UserComponent,
     MovieComponent,
     NavbarComponent,
     ListMoviesComponent
