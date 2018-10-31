@@ -1,0 +1,11 @@
+#connect{
+  color: white;
+}
+#connect:hover {
+  color: burlywood;
+  cursor: pointer;
+}
+#profil{
+  width: 40px;
+  height: 40px;
+}
