@@ -1,76 +1,28 @@
+<script src="app.component.spec.ts"></script>
+  <app-navbar></app-navbar>
 
 
-<nav *ngIf="user">
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Brand/logo -->
-    <a class="navbar-brand" href="#"> <img src="../assets/home.png"/> </a>
-
-    <!-- Links -->
-    <ul class="navbar-nav ">
-      <li class="nav-item">
-        <a class="nav-link">playlists</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" (click)="logout()">disconnection</a>
-      </li>
-    </ul>
-
-    <h1 class="navbar-brand ml-auto">TMDB + Firebase</h1>
-
-        <a class="navbar-brand ml-auto"  >
-          <img id="profil" [src]="user.photoURL" />
-        </a>
+  <hr/>
+  <pre *ngIf="lists">
+    {{lists | async | json}}
+  </pre>
 
 
-  </nav>
+  <app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
 
-</nav>
-<nav *ngIf="!user">
+  <table *ngIf="!!trendings">
+    TRENDINGS
+    <app-list-movies [trendings]="trendings"></app-list-movies>
+  </table>
+  <section *ngIf="!trendings">
+    PAS DE TRENDINGS
+  </section>
 
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Brand/logo -->
-    <a class="navbar-brand" href="#"> <img src="../assets/home.png"/> </a>
-
-    <!-- Links -->
-    <ul class="navbar-nav ">
-      <li class="nav-item">
-        <a class="nav-link">test</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" >test</a>
-      </li>
-
-    </ul>
-    <h1 class="navbar-brand ml-auto">TMDB + Firebase</h1>
-    <a class="navbar-brand ml-auto" id="connect" (click)="login()" >connect</a>
-
-  </nav>
-
-  <button (click)="login()">Connexion via Google</button>
-</nav>
-
-<hr/>
-<pre *ngIf="lists">
-  {{lists | async | json}}
-</pre>
-
-
-<app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
-
-<table *ngIf="!!trendings">
-  TRENDINGS
-  <app-list-movies [trendings]="trendings"></app-list-movies>
-</table>
-<section *ngIf="!trendings">
-  PAS DE TRENDINGS
-</section>
-
-<hr/>
-<section *ngIf="movie">
-  <img [src]="getPath(movie.poster_path)" />
-  <pre>{{movie | json}}</pre>
-</section>
-<section *ngIf="!movie">
-  Pas encore de films à afficher...
-</section>
-
+  <hr/>
+  <section *ngIf="movie">
+    <img [src]="getPath(movie.poster_path)" />
+    <pre>{{movie | json}}</pre>
+  </section>
+  <section *ngIf="!movie">
+    Pas encore de films à afficher...
+  </section>
