@@ -68,13 +68,8 @@ export class AppComponent {
     return `https://image.tmdb.org/t/p/w500${path}`;
   }
 
-  login() {
-    this.anAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
-  }
-
-  logout() {
-    this.anAuth.auth.signOut();
-    this._user = undefined;
+  get auth(): AngularFireAuth {
+    return this.anAuth;
   }
 
   get user(): User {
