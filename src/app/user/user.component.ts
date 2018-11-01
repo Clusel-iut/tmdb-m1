@@ -6,6 +6,7 @@ import {AngularFireAuth} from "@angular/fire/auth";
 import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
 import {filter} from "rxjs/operators";
 import {Observable} from "rxjs";
+import {Playlist} from '../tmdb-data/Playlist';
 
 @Component({
   selector: 'app-user',
@@ -36,7 +37,6 @@ export class UserComponent implements OnInit {
   public ajouterListe(listName: string) {
     const filmsListePath = `${this._user.uid}/liste/${listName}`;
     const filmsListe = this.database.list(filmsListePath);
-    console.log(filmsListePath);
     filmsListe.push("");
   }
 
@@ -71,6 +71,11 @@ export class UserComponent implements OnInit {
 
   get listes(): Observable<any> {
     return this.dbListes;
+  }
+
+  get listes2(): Playlist[] {
+    //this.dbListes.subscribe((e) => this._playlists.push());
+    return this._playlists;
   }
 }
 

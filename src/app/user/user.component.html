@@ -1,17 +1,24 @@
-<div>
-  <h2>Mes listes :</h2>
-  <!--<pre *ngFor="let liste of listes">
-    {{ liste.name }}
-  </pre>-->
-  <pre *ngIf="listes">
+<div class="wrapper">
+  <!-- Sidebar -->
+  <div id="sidebar">
+    <div class="sidebar-header">
+      <h2>Mes listes :</h2>
+    </div>
+
+    <pre *ngFor="let liste of listes2 | async">
+    {{ liste.getValue() }}
+  </pre>
+    <pre *ngIf="listes">
   {{listes | async | json}}
 
   </pre>
-  <form (ngSubmit)=ajouterListe(name.value)>
-    <p>Ajouter liste : </p>
-    <div class="form-group">
-      <input #name name="name" type="text" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-default">Ajouter</button>
-  </form>
+    <form (submit)="ajouterListe(playlist.value)">
+      <p>Ajouter liste : </p>
+      <div class="form-group">
+        <input #playlist name="name" type="text" class="form-control" required>
+      </div>
+      <button type="submit" class="btn btn-default">Ajouter</button>
+    </form>
+  </div>
+
 </div>

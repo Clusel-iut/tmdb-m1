@@ -1,14 +1,8 @@
 <html>
   <script src="app.component.spec.ts"></script>
   <body>
-    <app-navbar [_auth]="auth" [_user]="user"></app-navbar>
-    <!--<app-user></app-user>-->
-
-
-
-      <pre *ngIf="lists">
-        {{lists | async | json}}
-      </pre>
+    <app-navbar></app-navbar>
+    <app-user></app-user>
 
     <div id="trendings" >
       <h3 class="">TENDANCES</h3>

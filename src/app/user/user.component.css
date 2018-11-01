@@ -1,0 +1,25 @@
+.wrapper {
+  display: inline-block;
+  align-items: normal;
+}
+
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+}
+
+#sidebar.active {
+  margin-left: -250px;
+}
+
+#sidebar {
+  /* don't forget to add all the previously mentioned styles here too */
+  background: #555555;
+  color: #fff;
+  transition: all 0.3s;
+}
+
+#sidebar .sidebar-header {
+  padding: 20px;
+  background: #333333;
+}
