@@ -31,6 +31,10 @@ export class NavbarComponent implements OnInit {
     this.anAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
+  research() {
+    // IL FAUT REDIRIGER VERS LE COMPOSANT RESEARCH
+  }
+
   logout() {
     this.anAuth.auth.signOut();
     this._user = undefined;

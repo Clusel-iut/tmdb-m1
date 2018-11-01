@@ -12,4 +12,6 @@ export class ResearchComponent implements OnInit {
   ngOnInit() {
   }
 
+  researchElements() {
+  }
 }
