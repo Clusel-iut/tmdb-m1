@@ -27,10 +27,8 @@ export class UserComponent implements OnInit {
       this._listes = this.database.list(listsPath);
       this.dbListes = this._listes.valueChanges();
 
-      //this.ajouterListe("test4");
-      this.suprimerListe("test4");
-      //this.ajouterFilmListe("test", 1);
-
+      this.ajouterListe("test1");
+      this.ajouterFilmListe("test1", "1");
     });
   }
 
