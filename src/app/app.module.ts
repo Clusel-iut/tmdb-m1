@@ -12,6 +12,7 @@ import { UserComponent } from './user/user.component';
 import { MovieComponent } from './movie/movie.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
+import { ResearchComponent } from './research/research.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ListMoviesComponent } from './list-movies/list-movies.component';
     UserComponent,
     MovieComponent,
     NavbarComponent,
-    ListMoviesComponent
+    ListMoviesComponent,
+    ResearchComponent
   ],
   imports: [
     BrowserModule,

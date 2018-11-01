@@ -19,7 +19,8 @@ export class AppComponent {
   private _user: User;
   private dbData: Observable<any>;
   private _credits: CreditsResult;
-  private _trending: TrendingResult;
+  private _trendingMovie: TrendingResult;
+  private _seriesTrending: TrendingResult;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
@@ -35,8 +36,7 @@ export class AppComponent {
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
     setTimeout( () =>
-        tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-          .getCredits(13)
+        tmdb.getCredits(13)
           .then( (c: CreditsResult) => {
             this._credits = c;
             console.log('Actor 13:', c, this, '!');
@@ -44,10 +44,14 @@ export class AppComponent {
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
     setTimeout( () =>
-        tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-          .getTrendingMovies()
-          .then( (t: TrendingResult) => console.log('Trending :', this._trending = t) )
+        tmdb.getTrendingMovies()
+          .then( (tm: TrendingResult) => console.log('Trending :', this._trendingMovie = tm) )
           .catch( err => console.error('Error getting movie:', err) ),
+      1000 );
+    setTimeout( () =>
+        tmdb.getTrendingSeries()
+          .then( (ts: TrendingResult) => console.log('Trending :', this._seriesTrending = ts) )
+          .catch( err => console.error('Error getting series:', err) ),
       1000 );
 
   }
@@ -60,8 +64,12 @@ export class AppComponent {
     return this._credits;
   }
 
-  get trendings(): TrendingResult {
-    return this._trending;
+  get trendingsMovies(): TrendingResult {
+    return this._trendingMovie;
+  }
+
+  get trendingsSeries(): TrendingResult {
+    return this._seriesTrending;
   }
 
   getPath(path: string): string {

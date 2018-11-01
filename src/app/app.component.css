@@ -10,7 +10,12 @@
   height: 40px;
 }
 
-#trendings{
+#trendingsMovies{
   margin-left: 13%;
   margin-top: 5%;
+}
+
+#trendingsSeries{
+  margin-left: 13%;
+  margin-top: 30%;
 }
