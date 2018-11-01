@@ -12,8 +12,10 @@ export class MovieComponent implements OnInit {
 
   @Input() private _movie: MovieResponse;
   @Input() private _credits: CreditsResult;
+  private _switchPlaylists: boolean;
 
   constructor() {
+    this._switchPlaylists = true;
   }
 
   get movie(): MovieResponse {
@@ -29,6 +31,14 @@ export class MovieComponent implements OnInit {
 
   get credits(): CreditsResult {
     return this._credits;
+  }
+
+  switchPlaylists() {
+    this._switchPlaylists = !this._switchPlaylists;
+  }
+
+  get open(): boolean {
+    return this._switchPlaylists;
   }
 
 }

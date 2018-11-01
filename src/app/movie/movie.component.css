@@ -1,0 +1,28 @@
+.poster{
+  width: 300px;
+  height: 400px;
+}
+
+.movie{
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+ul{
+  text-decoration: none;
+}
+
+.add{
+  margin-left: 1%;
+  margin-right: 1%;
+  cursor: pointer;
+}
+
+.detail_title{
+  font-weight: bold;
+}
+.description{
+  width: 60%;
+  margin-left: 20%;
+  margin-right: 20%;
+}

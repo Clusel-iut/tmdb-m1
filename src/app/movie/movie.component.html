@@ -1,17 +1,40 @@
-<section *ngIf="movie">
-  <img [src]="getPath(movie.poster_path)" />
-  <h1>{{movie.title}}</h1>
-  <div>
-    Ce film appartient aux genres :
-  </div>
-  <div *ngFor="let genre of movie.genres">
-      {{genre.name}}
-  </div>
-  <div *ngFor="let cast of credits.cast | slice:0:10">
-      {{cast.character}} : {{cast.name}}
+<div class="movie media" *ngIf="movie">
+  <img class="media-object pull-left poster" [src]="getPath(movie.poster_path)" />
+  <div class="media-body">
+    <h1 class="span12">
+      {{movie.title}}
+      <img *ngIf="open" class="add" src="../assets/open.png" (click)="switchPlaylists()">
+      <img *ngIf="!open" class="add" src="../assets/close.png" (click)="switchPlaylists()">
+      <img class="add" src="../assets/add_fav.png" (click)="addFavorite()">
+    </h1>
+
+    <div>
+      <label class="detail_title">Genres :</label>
+      <label *ngFor="let genre of movie.genres">
+         {{genre.name}}/
+      </label>
+    </div>
+    <label class="detail_title">Distribution :</label>
+    <ul>
+        <li *ngFor="let cast of credits.cast | slice:0:5">
+          {{cast.character}} : {{cast.name}}
+        </li>
+    </ul>
+    <div>
+      <label class="detail_title">Durée :</label>
+      {{movie.runtime}} minutes
+    </div>
+    <div>
+      <label class="detail_title">Note :</label>
+      {{movie.vote_average}} / 10
+    </div>
   </div>
 
-</section>
+</div>
+<div class="description">
+  {{movie.overview}}
+</div>
+
 
 <section *ngIf="!movie">
   Pas encore de films à afficher...
