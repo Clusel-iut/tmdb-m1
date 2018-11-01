@@ -26,40 +26,47 @@ export class UserComponent implements OnInit {
       const listsPath = `${u.uid}`;
       this.database = db;
       this._listes = this.database.list(listsPath);
-      this.listes.forEach((e) => this._playlists.push(new Playlist(e.valueOf())))
       this.dbListes = this._listes.valueChanges();
-
-      this.ajouterListe("test1");
-      this.ajouterFilmListe("test1", "1");
     });
   }
 
   ngOnInit() {
   }
 
-  ajouterListe(listName: string) {
+  public ajouterListe(listName: string) {
     const filmsListePath = `${this._user.uid}/liste/${listName}`;
     const filmsListe = this.database.list(filmsListePath);
+    console.log(filmsListePath);
     filmsListe.push("");
   }
 
-  ajouterFilmListe(listName: string, filmId: string) {
+  public ajouterFilmListe(listName: string, filmId: string) {
     const filmsListePath = `${this._user.uid}/liste/${listName}`;
     const filmsListe = this.database.list(filmsListePath);
 
     filmsListe.push(filmId);
   }
 
-  suprimerListe(listName: string){
+  public suprimerListe(listName: string) {
     const filmsListePath = `${this._user.uid}/liste/`;
     const filmsListe = this.database.list(filmsListePath);
     filmsListe.remove(listName);
   }
 
-  supprimerListeFilm(listName: string, filmId: string){
+  public supprimerListeFilm(listName: string, filmId: string) {
     const filmsListePath = `${this._user.uid}/liste/${listName}`;
     const filmsListe = this.database.list(filmsListePath);
     filmsListe.remove(filmId.toString());
+  }
+
+  public getFilmsFromPlaylist(listName: string): Playlist {
+    const filmsListePath = `${this._user.uid}/liste/${listName}`;
+    const filmsListe = this.database.list(filmsListePath);
+
+    const playlist = new Playlist(listName);
+    filmsListe.valueChanges().forEach((e) => playlist.addFilm(e.toString()));
+
+    return playlist;
   }
 
   get listes(): Observable<any> {

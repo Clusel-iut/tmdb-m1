@@ -1,6 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth, User} from 'firebase';
+import {TmdbService} from '../tmdb.service';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {filter} from 'rxjs/operators';
+import {MovieResponse} from '../tmdb-data/Movie';
+import {CreditsResult} from '../tmdb-data/MovieCredits';
+import {TrendingResult} from '../tmdb-data/Trending';
 
 
 @Component({
@@ -10,21 +16,26 @@ import {auth, User} from 'firebase';
 })
 export class NavbarComponent implements OnInit {
 
-  @Input() private _auth: AngularFireAuth;
-  @Input() private _user: User;
-  constructor() { }
+  public _user: User;
+
+  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
+    this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
+      this._user = u;
+    });
+  }
 
   ngOnInit() {
   }
 
   login() {
-    this._auth.auth.signInWithPopup(new auth.GoogleAuthProvider());
+    this.anAuth.auth.signInWithPopup(new auth.GoogleAuthProvider());
   }
 
   logout() {
-    this._auth.auth.signOut();
+    this.anAuth.auth.signOut();
     this._user = undefined;
   }
+
   get user(): User {
     return this._user;
   }

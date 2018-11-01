@@ -1,12 +1,9 @@
 <script src="app.component.spec.ts"></script>
-  <app-navbar [_auth]="auth" [_user]="user"></app-navbar>
+  <app-navbar></app-navbar>
   <app-user></app-user>
 
 
 <hr/>
-  <pre *ngIf="lists">
-    {{lists | async | json}}
-  </pre>
 
 
   <app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
