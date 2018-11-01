@@ -15,6 +15,7 @@ import {Observable} from "rxjs";
 export class UserComponent implements OnInit {
 
   public _listes: AngularFireList<{}>;
+  public _playlists: Playlist[];
   private _user: User;
   private database: AngularFireDatabase;
   private dbListes: Observable<any>;
@@ -25,6 +26,7 @@ export class UserComponent implements OnInit {
       const listsPath = `${u.uid}`;
       this.database = db;
       this._listes = this.database.list(listsPath);
+      this.listes.forEach((e) => this._playlists.push(new Playlist(e.valueOf())))
       this.dbListes = this._listes.valueChanges();
 
       this.ajouterListe("test1");
