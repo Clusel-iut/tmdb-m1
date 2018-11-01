@@ -1,26 +1,33 @@
-<script src="app.component.spec.ts"></script>
-  <app-navbar></app-navbar>
-  <app-user></app-user>
+<html>
+  <script src="app.component.spec.ts"></script>
+  <body>
+    <app-navbar [_auth]="auth" [_user]="user"></app-navbar>
+    <!--<app-user></app-user>-->
 
 
-<hr/>
 
+      <pre *ngIf="lists">
+        {{lists | async | json}}
+      </pre>
 
-  <app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
-
-  <table *ngIf="!!trendings">
-    TRENDINGS
-    <app-list-movies [trendings]="trendings"></app-list-movies>
-  </table>
-  <section *ngIf="!trendings">
-    PAS DE TRENDINGS
-  </section>
-
-  <hr/>
-  <section *ngIf="movie">
-    <img [src]="getPath(movie.poster_path)" />
-    <pre>{{movie | json}}</pre>
-  </section>
-  <section *ngIf="!movie">
-    Pas encore de films à afficher...
-  </section>
+    <div id="trendings" >
+      <h3 class="">TENDANCES</h3>
+      <hr/>
+      <div class="" *ngIf="!!trendings">
+        <h4>Films du mois</h4>
+        <app-list-movies [trendings]="trendings"></app-list-movies>
+      </div>
+      <section *ngIf="!trendings">
+        PAS DE TRENDINGS
+      </section>
+    </div>
+    <section *ngIf="movie">
+      <img [src]="getPath(movie.poster_path)" />
+      <pre>{{movie | json}}</pre>
+    </section>
+    <section *ngIf="!movie">
+      Pas encore de films à afficher...
+    </section>
+    <app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
+  </body>
+</html>
