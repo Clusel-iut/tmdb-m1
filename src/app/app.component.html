@@ -1,8 +1,9 @@
 <script src="app.component.spec.ts"></script>
   <app-navbar [_auth]="auth" [_user]="user"></app-navbar>
+  <app-user></app-user>
 
 
-  <hr/>
+<hr/>
   <pre *ngIf="lists">
     {{lists | async | json}}
   </pre>
