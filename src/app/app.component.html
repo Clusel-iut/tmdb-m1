@@ -10,17 +10,23 @@
         {{lists | async | json}}
       </pre>
 
-    <div id="trendings" >
+    <div id="trendingsMovies" >
       <h3 class="">TENDANCES</h3>
       <hr/>
-      <div class="" *ngIf="!!trendings">
-        <h4>Films du mois</h4>
-        <app-list-movies [trendings]="trendings"></app-list-movies>
+      <div class="" *ngIf="!!trendingsMovies">
+        <h4>Films de la semaine</h4>
+        <app-list-movies [trendings]="trendingsMovies"></app-list-movies>
       </div>
-      <section *ngIf="!trendings">
-        PAS DE TRENDINGS
-      </section>
     </div>
+    <div id="trendingsSeries">
+      <div class="" *ngIf="!!trendingsSeries">
+        <h4>Séries de la semaine</h4>
+        <app-list-movies [trendings]="trendingsSeries"></app-list-movies>
+      </div>
+    </div>
+    <section *ngIf="!trendingsMovies&&!trendingsSeries">
+      PAS DE TRENDINGS
+    </section>
     <section *ngIf="movie">
       <img [src]="getPath(movie.poster_path)" />
       <pre>{{movie | json}}</pre>

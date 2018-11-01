@@ -63,7 +63,13 @@ export class TmdbService {
   }
 
   async getTrendingMovies(): Promise<TrendingResult> {
-    const url = `${tmdbApi}/trending/movie/day`;
+    const url = `${tmdbApi}/trending/movie/week`;
+    const res = await this.get<TrendingResult>(url, null);
+    return res.body;
+  }
+
+  async getTrendingSeries(): Promise<TrendingResult> {
+    const url = `${tmdbApi}/trending/tv/week`;
     const res = await this.get<TrendingResult>(url, null);
     return res.body;
   }
