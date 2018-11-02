@@ -2,17 +2,10 @@
   <!-- Sidebar -->
   <div id="sidebar">
     <div class="sidebar-header">
-      <h2>Mes listes :</h2>
+      <h3>Mes listes :</h3>
     </div>
-
-    <pre *ngFor="let liste of listes2 | async">
-    {{ liste.getValue() }}
-  </pre>
-    <pre *ngIf="listes">
-  {{listes | async | json}}
-
-  </pre>
-    <form (submit)="ajouterListe(playlist.value)">
+    <pre *ngFor="let liste of listes | async"><a (click)="suprimerListe(liste.key)"><img src="../assets/delete.png"/> </a>{{ liste.payload.val().name }}</pre>
+    <form (submit)="ajouterListe(playlist.value, $event)">
       <p>Ajouter liste : </p>
       <div class="form-group">
         <input #playlist name="name" type="text" class="form-control" required>
@@ -20,5 +13,4 @@
       <button type="submit" class="btn btn-default">Ajouter</button>
     </form>
   </div>
-
 </div>

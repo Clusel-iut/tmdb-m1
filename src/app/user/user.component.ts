@@ -15,67 +15,48 @@ import {Playlist} from '../tmdb-data/Playlist';
 })
 export class UserComponent implements OnInit {
 
-  public _listes: AngularFireList<{}>;
-  public _playlists: Playlist[];
+  public _playlists: AngularFireList<any>;
   private _user: User;
-  private database: AngularFireDatabase;
-  private dbListes: Observable<any>;
+  private basePath: string;
+  private dbListes: Observable<any[]>;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
-      const listsPath = `${u.uid}`;
-      this.database = db;
-      this._listes = this.database.list(listsPath);
-      this.dbListes = this._listes.valueChanges();
+      this.basePath = `${u.uid}/playlists`;
+      this._playlists = this.db.list(this.basePath);
+      this.dbListes = this._playlists.snapshotChanges();
     });
   }
 
   ngOnInit() {
   }
 
-  public ajouterListe(listName: string) {
-    const filmsListePath = `${this._user.uid}/liste/${listName}`;
-    const filmsListe = this.database.list(filmsListePath);
-    filmsListe.push("");
+  public ajouterListe(listName: string, event: Event = null) {
+    if (event != null) { event.preventDefault(); }
+    this._playlists.push(new Playlist(listName));
   }
 
-  public ajouterFilmListe(listName: string, filmId: string) {
-    const filmsListePath = `${this._user.uid}/liste/${listName}`;
-    const filmsListe = this.database.list(filmsListePath);
-
-    filmsListe.push(filmId);
+  public ajouterFilmListe(list: any, filmId: string) {
+    list.films.push(filmId);
+    this._playlists.update(list.$key, list);
   }
 
-  public suprimerListe(listName: string) {
-    const filmsListePath = `${this._user.uid}/liste/`;
-    const filmsListe = this.database.list(filmsListePath);
-    filmsListe.remove(listName);
+  public suprimerListe($key: string) {
+    console.log($key);
+    this._playlists.remove($key);
   }
 
-  public supprimerListeFilm(listName: string, filmId: string) {
-    const filmsListePath = `${this._user.uid}/liste/${listName}`;
-    const filmsListe = this.database.list(filmsListePath);
-    filmsListe.remove(filmId.toString());
-  }
-
-  public getFilmsFromPlaylist(listName: string): Playlist {
-    const filmsListePath = `${this._user.uid}/liste/${listName}`;
-    const filmsListe = this.database.list(filmsListePath);
-
-    const playlist = new Playlist(listName);
-    filmsListe.valueChanges().forEach((e) => playlist.addFilm(e.toString()));
-
-    return playlist;
+  public supprimerListeFilm(list: any, filmId: string) {
+    const index = list.films.indexOf(filmId, 0);
+    if (index > -1) {
+      list.films.splice(index, 1);
+    }
+    this._playlists.update(list.$key, list);
   }
 
   get listes(): Observable<any> {
     return this.dbListes;
-  }
-
-  get listes2(): Playlist[] {
-    //this.dbListes.subscribe((e) => this._playlists.push());
-    return this._playlists;
   }
 }
 
