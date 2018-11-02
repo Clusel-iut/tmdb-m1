@@ -1,10 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {TrendingResult} from '../tmdb-data/Trending';
 import {TmdbService} from '../tmdb.service';
-import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireDatabase} from '@angular/fire/database';
-import {MatDialog} from '@angular/material';
-import {DialogfilmComponent} from '../popup/dialogfilm/dialogfilm.component';
+import {MovieResponse} from '../tmdb-data/Movie';
+import {CreditsResult} from '../tmdb-data/MovieCredits';
 @Component({
   selector: 'app-list-movies',
   templateUrl: './list-movies.component.html',
@@ -14,8 +12,12 @@ import {DialogfilmComponent} from '../popup/dialogfilm/dialogfilm.component';
 export class ListMoviesComponent implements OnInit {
 
   @Input('trendings') private _trendings: TrendingResult;
+  private _openMovie: boolean;
+  private _movie: MovieResponse;
+  private _credits: CreditsResult;
 
-  constructor (private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase, public dialog: MatDialog) {
+  constructor (private tmdb: TmdbService) {
+    this._openMovie = false;
   }
 
   get trendings(): TrendingResult {
@@ -28,8 +30,38 @@ export class ListMoviesComponent implements OnInit {
   ngOnInit() {
   }
 
+  get openMove(): boolean {
+    return this._openMovie;
+  }
   openMovie(elem: any) {
-    this.dialog.open(DialogfilmComponent, {height: '100%', width: '50%', data: {elem: elem}});
+    this._openMovie = true;
+    setTimeout( () =>
+        this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
+          .getMovie(elem.id)
+          .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
+          .catch( err => console.error('Error getting movie:', err) ),
+      1000 );
+    // this.dialog.open(DialogfilmComponent, {height: '90%', width: '70%', data: {elem: elem}});
+  }
+
+  get movie(): MovieResponse {
+    return this._movie;
+  }
+
+  get credits(): CreditsResult {
+    setTimeout( () =>
+        this.tmdb.getCredits(this._movie.id)
+          .then( (c: CreditsResult) => {
+            this._credits = c;
+            console.log('Actor 13:', c, this, '!');
+          } )
+          .catch( err => console.error('Error getting movie:', err) ),
+      1000 );
+    return this._credits;
+  }
+
+  closeMovie() {
+    this._openMovie = false;
   }
 
 }
