@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {MovieResponse} from "../tmdb-data/Movie";
-import {User} from "firebase";
-import {TmdbService} from "../tmdb.service";
-import {AngularFireAuth} from "@angular/fire/auth";
-import {AngularFireDatabase, AngularFireList} from "@angular/fire/database";
-import {filter} from "rxjs/operators";
-import {Observable} from "rxjs";
+import {MovieResponse} from '../tmdb-data/Movie';
+import {User} from 'firebase';
+import {TmdbService} from '../tmdb.service';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
+import {filter} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 import {Playlist} from '../tmdb-data/Playlist';
 import {PlaylistService} from '../playlist.service';
 

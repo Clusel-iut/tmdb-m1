@@ -1,0 +1,15 @@
+body {
+  background-color: #333333;
+}
+
+input {
+  width: 80%;
+  align-content: center;
+}
+
+.texte {
+  position: absolute;
+  margin-left: 1cm;
+  font-size: 0.8cm;
+  color: #e50914;
+}

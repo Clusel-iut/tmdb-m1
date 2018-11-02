@@ -1,13 +1,20 @@
 <html>
-<app-navbar></app-navbar>
 <body>
-<div class="">
-  <form role="" >
-    <div>
-      <a class="navbar-brand col-md-1" id="rechercher" (click)="researchElements()" > <img src="../assets/rechercher.png"/></a>
-      <input type="text" class="form-control">
-    </div>
-  </form>
+<div class="texte">
+   <div>
+      <img src="../assets/rechercher.png"/> Que voulez-vous rechercher ?
+   </div>
+  <br/>
+   <div>
+      <input id="form" type="text" class="form-control" size="20">
+   </div>
+  <br/>
+  <div class="texte">
+    Résultat(s) :
+  </div>
+  <div>
+    <app-list-movies [trendings]="researchElements()"></app-list-movies>
+  </div>
 </div>
 
 

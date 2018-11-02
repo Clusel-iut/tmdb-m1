@@ -7,6 +7,7 @@ import {filter} from 'rxjs/operators';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
 import {TrendingResult} from '../tmdb-data/Trending';
+import {ResearchComponent} from '../research/research.component';
 
 
 @Component({
@@ -32,7 +33,7 @@ export class NavbarComponent implements OnInit {
   }
 
   research() {
-    // IL FAUT REDIRIGER VERS LE COMPOSANT RESEARCH
+    // this.dialog.open(ResearchComponent);
   }
 
   logout() {
