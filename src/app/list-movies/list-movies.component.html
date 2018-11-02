@@ -2,10 +2,14 @@
   <div *ngFor="let elem of trendings.results | slice:0:5">
     <div class="gallery">
       <img [src]="getPath(elem.poster_path)">
-      <div *ngIf="!elem.title"  class="desc" (click)="openMovie(elem.id)">{{elem.name}}</div>
-      <div *ngIf="!elem.name"  class="desc">{{elem.title}}</div>
+      <div *ngIf="!elem.title"  class="desc" (click)="openMovie(elem)">{{elem.name}}</div>
+      <div *ngIf="!elem.name"  class="desc" (click)="openMovie(elem)">{{elem.title}}</div>
     </div>
   </div>
+
+
+
+
 
 <section *ngIf="!trendings">
   Aucun film en tendance ...

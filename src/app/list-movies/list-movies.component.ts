@@ -3,7 +3,8 @@ import {TrendingResult} from '../tmdb-data/Trending';
 import {TmdbService} from '../tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
-
+import {MatDialog} from '@angular/material';
+import {DialogfilmComponent} from '../popup/dialogfilm/dialogfilm.component';
 @Component({
   selector: 'app-list-movies',
   templateUrl: './list-movies.component.html',
@@ -14,7 +15,7 @@ export class ListMoviesComponent implements OnInit {
 
   @Input('trendings') private _trendings: TrendingResult;
 
-  constructor (private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor (private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase, public dialog: MatDialog) {
   }
 
   get trendings(): TrendingResult {
@@ -27,8 +28,8 @@ export class ListMoviesComponent implements OnInit {
   ngOnInit() {
   }
 
-  openMovie(id: string) {
-
+  openMovie(elem: any) {
+    this.dialog.open(DialogfilmComponent, {height: '100%', width: '50%', data: {elem: elem}});
   }
 
 }
