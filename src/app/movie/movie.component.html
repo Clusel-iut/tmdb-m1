@@ -4,11 +4,16 @@
     <div class="media-body">
       <h1 class="span12">
         {{movie.title}}
-        <img *ngIf="open" class="add" src="../assets/open.png" (click)="switchPlaylists()">
-        <img *ngIf="!open" class="add" src="../assets/close.png" (click)="switchPlaylists()">
+        <div class="dropdown">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <img src="../assets/open.png">
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li *ngFor="let liste of listes | async"><a (click)="ajouterFilmListe(liste, movie.id.toString())"><img src="../assets/open.png"/> </a>{{ liste.payload.val().name }}</li>
+          </ul>
+        </div>
         <img class="add" src="../assets/add_fav.png" (click)="addFavorite()">
       </h1>
-
       <div>
         <label class="detail_title">Genres :</label>
         <label *ngFor="let genre of movie.genres">

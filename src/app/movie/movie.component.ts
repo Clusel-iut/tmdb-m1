@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
+import {UserComponent} from '../user/user.component';
+import {PlaylistService} from '../playlist.service';
+import {Observable} from 'rxjs';
 
 @Component({
   selector: 'app-movie',
@@ -14,7 +17,7 @@ export class MovieComponent implements OnInit {
   @Input() private _credits: CreditsResult;
   private _switchPlaylists: boolean;
 
-  constructor() {
+  constructor(private playlistSvc: PlaylistService) {
     this._switchPlaylists = true;
   }
 
@@ -33,12 +36,15 @@ export class MovieComponent implements OnInit {
     return this._credits;
   }
 
-  switchPlaylists() {
-    this._switchPlaylists = !this._switchPlaylists;
-  }
-
   get open(): boolean {
     return this._switchPlaylists;
   }
 
+  public ajouterFilmListe(list: any, filmId: string) {
+    this.playlistSvc.ajouterFilmListe(list, filmId);
+  }
+
+  get listes(): Observable<any> {
+    return this.playlistSvc.listes;
+  }
 }

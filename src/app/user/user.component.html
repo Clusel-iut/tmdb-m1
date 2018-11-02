@@ -5,7 +5,7 @@
       <h3>Mes listes :</h3>
     </div>
     <pre *ngFor="let liste of listes | async"><a (click)="suprimerListe(liste.key)"><img src="../assets/delete.png"/> </a>{{ liste.payload.val().name }}</pre>
-    <form (submit)="ajouterListe(playlist.value, $event)">
+    <form (submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
       <p>Ajouter liste : </p>
       <div class="form-group">
         <input #playlist name="name" type="text" class="form-control" required>
