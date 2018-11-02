@@ -1,0 +1,21 @@
+#connect{
+  color: white;
+}
+#connect:hover {
+  color: burlywood;
+  cursor: pointer;
+}
+#profil{
+  width: 40px;
+  height: 40px;
+}
+
+#trendingsMovies{
+  margin-left: 13%;
+  margin-top: 5%;
+}
+
+#trendingsSeries{
+  margin-left: 13%;
+  margin-top: 30%;
+}

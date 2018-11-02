@@ -2,33 +2,6 @@
 <script src="app.component.spec.ts"></script>
 <body>
 <app-navbar></app-navbar>
-
-<app-user *ngIf="user"></app-user>
-
-<div id="trendingsMovies" >
-  <h3 class="">TENDANCES</h3>
-  <hr/>
-  <div class="" *ngIf="!!trendingsMovies">
-    <h4>Films de la semaine</h4>
-    <app-list-movies [trendings]="trendingsMovies"></app-list-movies>
-  </div>
-</div>
-<div id="trendingsSeries">
-  <div class="" *ngIf="!!trendingsSeries">
-    <h4>Séries de la semaine</h4>
-    <app-list-movies [trendings]="trendingsSeries"></app-list-movies>
-  </div>
-</div>
-<section *ngIf="!trendingsMovies&&!trendingsSeries">
-  PAS DE TRENDINGS
-</section>
-<section *ngIf="movie">
-  <img [src]="getPath(movie.poster_path)" />
-  <pre>{{movie | json}}</pre>
-</section>
-<section *ngIf="!movie">
-  Pas encore de films à afficher...
-</section>
-<app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
+<router-outlet></router-outlet>
 </body>
 </html>

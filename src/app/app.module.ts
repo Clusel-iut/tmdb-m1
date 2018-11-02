@@ -1,4 +1,4 @@
-import  { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
@@ -16,6 +16,17 @@ import { ResearchComponent } from './research/research.component';
 import { DialogfilmComponent } from './popup/dialogfilm/dialogfilm.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule, Routes } from '@angular/router';
+import { HomepageComponent } from './homepage/homepage.component';
+
+const appRoutes: Routes = [
+  { path: 'home', component: HomepageComponent},
+  { path: 'research', component: ResearchComponent },
+  { path: '',   redirectTo: '/home', pathMatch: 'full' },
+  { path: '***', component: HomepageComponent}
+];
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +35,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     NavbarComponent,
     ListMoviesComponent,
     ResearchComponent,
-    DialogfilmComponent
+    DialogfilmComponent,
+    HomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +46,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AngularFireDatabaseModule,
     MatDialogModule,
     MatButtonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [TmdbService],
   bootstrap: [AppComponent],
