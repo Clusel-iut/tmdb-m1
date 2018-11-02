@@ -8,8 +8,4 @@ export class Playlist {
       this.films = films;
     }
   }
-
-  public addFilm(idFilm: string) {
-    this.films.push(idFilm);
-  }
 }

@@ -6,6 +6,7 @@
 #sidebar {
   min-width: 250px;
   max-width: 250px;
+  padding: 25px;
 }
 
 #sidebar.active {
@@ -22,4 +23,12 @@
 #sidebar .sidebar-header {
   padding: 20px;
   background: #333333;
+}
+
+button {
+  background-color: #e50914;
+}
+
+pre {
+  color: #fff;
 }
