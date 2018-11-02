@@ -10,9 +10,9 @@ export interface SearchMovieQuery {
 
 export interface SearchMovieResponse {
   page?: number;
-  results?: MovieResult[];
-  total_results?: number;
+  results?: MoviesResult[];
   total_pages?: number;
+  total_results?: number;
 }
 
 export interface MovieResult {
@@ -30,4 +30,13 @@ export interface MovieResult {
   vote_count?: number;
   video?: boolean;
   vote_average?: number;
+}
+
+
+export interface MoviesResult {
+  id?: number;
+  backdrop_path?: string;
+  name?: string;
+  poster_path?: string;
+
 }

@@ -2,11 +2,11 @@
   width: 300px;
   height: 400px;
 }
-
+/*
 .movie{
   margin-left: 20%;
   margin-right: 20%;
-}
+}*/
 
 ul{
   text-decoration: none;
@@ -22,7 +22,11 @@ ul{
   font-weight: bold;
 }
 .description{
-  width: 60%;
-  margin-left: 20%;
-  margin-right: 20%;
+  margin-top: 1%;
+  width: 80%;
 }
+
+.media-body{
+  margin-left: 5%;
+}
+
