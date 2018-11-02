@@ -15,7 +15,6 @@ export class ListMoviesComponent implements OnInit {
   private _openMovie: boolean;
   private _movie: MovieResponse;
   private _credits: CreditsResult;
-
   constructor (private tmdb: TmdbService) {
     this._openMovie = false;
   }
@@ -38,10 +37,17 @@ export class ListMoviesComponent implements OnInit {
     setTimeout( () =>
         this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
           .getMovie(elem.id)
-          .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
+          .then( (m: MovieResponse) => console.log( this._movie = m) )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
-    // this.dialog.open(DialogfilmComponent, {height: '90%', width: '70%', data: {elem: elem}});
+    setTimeout( () =>
+        this.tmdb.getCredits(elem.id)
+          .then( (c: CreditsResult) => {
+            this._credits = c;
+          } )
+          .catch( err => console.error('Error getting movie:', err) ),
+      1000 );
+     // this.dialog.open(DialogfilmComponent, {height: '90%', width: '70%', data: {elem: elem}});
   }
 
   get movie(): MovieResponse {
@@ -49,14 +55,6 @@ export class ListMoviesComponent implements OnInit {
   }
 
   get credits(): CreditsResult {
-    setTimeout( () =>
-        this.tmdb.getCredits(this._movie.id)
-          .then( (c: CreditsResult) => {
-            this._credits = c;
-            console.log('Actor 13:', c, this, '!');
-          } )
-          .catch( err => console.error('Error getting movie:', err) ),
-      1000 );
     return this._credits;
   }
 
