@@ -18,10 +18,12 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomepageComponent},
   { path: 'research', component: ResearchComponent },
+  { path: 'user', component: PlaylistComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '***', component: HomepageComponent}
 ];
@@ -36,7 +38,8 @@ const appRoutes: Routes = [
     ListMoviesComponent,
     ResearchComponent,
     DialogfilmComponent,
-    HomepageComponent
+    HomepageComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,
