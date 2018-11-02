@@ -51,12 +51,12 @@ img{
 }
 
 /* The Close Button */
-#close.close {
+.close {
   color: #aaa;
   float: right;
   height: 30px;
   width: 30px;
-  margin-right: 80%;
+  margin-left: 97%;
 }
 
 .close:hover,

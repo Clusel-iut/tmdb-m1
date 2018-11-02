@@ -12,6 +12,13 @@ ul{
   text-decoration: none;
 }
 
+li {
+  margin: 10px;
+}
+li img{
+  margin-right: 5px;
+}
+
 .add{
   margin-left: 1%;
   margin-right: 1%;

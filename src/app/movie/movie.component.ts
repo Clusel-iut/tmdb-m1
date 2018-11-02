@@ -53,4 +53,16 @@ export class MovieComponent implements OnInit {
   get listes(): Observable<any> {
     return this.playlistSvc.listes;
   }
+
+  public estFavoris(idFilm: string): boolean {
+    return this.playlistSvc.estFavoris(idFilm);
+  }
+
+  public ajouterFavoris(idFilm: string) {
+    this.playlistSvc.ajouterFavoris(idFilm);
+  }
+
+  public suprimerFavoris(idFilm: string) {
+    this.playlistSvc.suprimerFavoris(idFilm);
+  }
 }

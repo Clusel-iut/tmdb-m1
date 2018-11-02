@@ -15,11 +15,3 @@
 <section *ngIf="!trendingsMovies&&!trendingsSeries">
   PAS DE TRENDINGS
 </section>
-<section *ngIf="movie">
-  <img [src]="getPath(movie.poster_path)" />
-  <pre>{{movie | json}}</pre>
-</section>
-<section *ngIf="!movie">
-  Pas encore de films à afficher...
-</section>
-<app-movie [_movie]="movie" [_credits]="credits">"</app-movie>
