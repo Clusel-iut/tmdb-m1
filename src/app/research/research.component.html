@@ -1,22 +1,24 @@
 <html>
 <body>
-<div class="texte">
+<br/>
+<div>
+  <div id="research">
    <div>
       <img src="../assets/rechercher.png"/> Que voulez-vous rechercher ?
    </div>
-  <br/>
+    <br/>
    <div>
-      <input id="form" type="text" class="form-control" size="20">
+      <input id="form" type="search" class="form-control" size="20" (input)="research($event.target.value)">
    </div>
-  <br/>
-  <div class="texte">
+    <br/>
+  </div>
+  <div id="research">
     Résultat(s) :
   </div>
-  <div>
-    <app-list-movies [trendings]="researchElements()"></app-list-movies>
+  <br/>
+  <div id="result">
+    <app-list-movies [trendings]="researchElements()" [start]=0 [end]=10></app-list-movies>
   </div>
 </div>
-
-
 </body>
 </html>

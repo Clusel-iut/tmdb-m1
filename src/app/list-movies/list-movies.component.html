@@ -1,5 +1,9 @@
 
-  <div *ngFor="let elem of trendings.results | slice:0:5">
+<section *ngIf="!trendings">
+  <div>Aucun film trouvé ...</div>
+</section>
+
+  <div *ngFor="let elem of trendings.results | slice:start:end">
     <div class="gallery" (click)="openMovie(elem)">
       <img [src]="getPath(elem.poster_path)">
       <div *ngIf="!elem.title"  class="desc" >{{elem.name}}</div>
@@ -14,7 +18,3 @@
       </div>
     </div>
   </div>
-
-<section *ngIf="!trendings">
-  Aucun film en tendance ...
-</section>

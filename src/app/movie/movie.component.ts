@@ -55,7 +55,8 @@ export class MovieComponent implements OnInit {
   }
 
   public estFavoris(idFilm: string): boolean {
-    return this.playlistSvc.estFavoris(idFilm);
+    return true;
+    // return this.playlistSvc.estFavoris(idFilm);
   }
 
   public ajouterFavoris(idFilm: string) {
