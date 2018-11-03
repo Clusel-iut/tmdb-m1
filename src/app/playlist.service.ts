@@ -32,8 +32,8 @@ export class PlaylistService {
 
   public ajouterListe(listName: string, event: Event = null) {
     if (event != null) { event.preventDefault(); }
-
-    let test = false;
+    this._playlists.push(new Playlist(listName));
+    /*let test = false;
     this.listes.forEach(value => {
       console.log(value);
       if (value.payload.val().name === listName) {
@@ -44,7 +44,7 @@ export class PlaylistService {
         this._playlists.push(new Playlist(listName));
       }
     }
-    );
+    );*/
   }
 
   public ajouterFilmListe(list: any, filmId: string) {
