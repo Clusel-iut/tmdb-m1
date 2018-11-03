@@ -9,7 +9,7 @@
         <a (click)="suprimerListe(liste.key)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(liste.key, liste.payload.val().name )">{{ liste.payload.val().name }}</label>
+        <label (click)="afficherListe(liste, liste.payload.val().name )">{{ liste.payload.val().name }}</label>
       </section>
       <form (submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Ajouter liste : </p>
@@ -24,7 +24,7 @@
     <h1>{{ nameList }}</h1>
     <hr/>
     <div *ngIf="listMovies" class="list">
-      <app-list-movies [trendings]="listMovies"></app-list-movies>
+      <app-list-movies [trendings]="listMovies" [_list]="list" [_playlist]="true"></app-list-movies>
     </div>
   </div>
 </div>

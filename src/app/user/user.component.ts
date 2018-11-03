@@ -20,8 +20,9 @@ export class UserComponent implements OnInit {
   private _user: User;
   private _listMovies: TrendingResult;
   private _nameList: string;
+  private _list: any;
 
-  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase, private playlistSvc: PlaylistService) {
+  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
     });
@@ -42,9 +43,10 @@ export class UserComponent implements OnInit {
     return this.playlistSvc.listes;
   }
 
-  afficherListe(key: any, nameList: string) {
+  afficherListe(list: any, nameList: string) {
     this._listMovies = {results: []};
-    this.playlistSvc.initMovies(key).forEach(k => {
+    this._list = list;
+    this.playlistSvc.initMovies(list.key).forEach(k => {
       k.forEach(finalKey => {
         console.log(finalKey.payload.node_.value_);
         setTimeout( () =>
@@ -68,6 +70,10 @@ export class UserComponent implements OnInit {
 
   get nameList(): string {
     return this._nameList;
+  }
+
+  get list(): any {
+    return this._list;
   }
 
 }
