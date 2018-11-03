@@ -12,6 +12,8 @@ import {CreditsResult} from '../tmdb-data/MovieCredits';
 export class ListMoviesComponent implements OnInit {
 
   @Input('trendings') private _trendings: TrendingResult;
+  @Input('start') private _start: number;
+  @Input('end') private _end: number;
   private _openMovie: boolean;
   private _movie: MovieResponse;
   private _credits: CreditsResult;
@@ -62,4 +64,11 @@ export class ListMoviesComponent implements OnInit {
     this._openMovie = false;
   }
 
+  get start(): number {
+    return this._start;
+  }
+
+  get end(): number {
+    return this._end;
+  }
 }

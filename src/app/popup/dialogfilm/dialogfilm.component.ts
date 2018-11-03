@@ -21,7 +21,15 @@ export class DialogfilmComponent implements OnInit {
     return `https://image.tmdb.org/t/p/w500${path}`;
   }
   getcredits(id: number): CreditsResult {
-    this._credits = <CreditsResult>this.tmdb.getCredits(id);
+    setTimeout( () =>
+        this.tmdb.getCredits(13)
+          .then( (c: CreditsResult) => {
+            this._credits = c;
+            console.log('Actor 13:', c, this, '!');
+          } )
+          .catch( err => console.error('Error getting movie:', err) ),
+      1000 );
+    //this._credits = <CreditsResult>this.tmdb.getCredits(id);
     return this._credits;
   }
   op(id: number) {
