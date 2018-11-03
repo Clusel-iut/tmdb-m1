@@ -17,7 +17,6 @@ export class PlaylistService {
   private _movies: AngularFireList<any>;
   private _user: User;
   private basePath: string;
-  private basePathFavoris: string;
   private basePathMovies: string;
   private dbListes: Observable<any[]>;
   private dbMovies: Observable<any[]>;
@@ -28,15 +27,24 @@ export class PlaylistService {
       this.basePath = `${u.uid}/playlists`;
       this._playlists = this.db.list(this.basePath);
       this.dbListes = this._playlists.snapshotChanges();
-
-      this.basePathFavoris = `${u.uid}/favoris`;
-      this._favoris = this.db.list(this.basePathFavoris);
     });
   }
 
   public ajouterListe(listName: string, event: Event = null) {
     if (event != null) { event.preventDefault(); }
     this._playlists.push(new Playlist(listName));
+    /*let test = false;
+    this.listes.forEach(value => {
+      console.log(value);
+      if (value.payload.val().name === listName) {
+      test = true;
+    }
+    }).then( () => {
+      if (test === false) {
+        this._playlists.push(new Playlist(listName));
+      }
+    }
+    );*/
   }
 
   public ajouterFilmListe(list: any, filmId: string) {
@@ -68,6 +76,14 @@ export class PlaylistService {
     return this.dbListes;
   }
 
+  public estFavoris(list: any, filmId: string): boolean {
+    const playlist = new Playlist(list.payload.val().name);
+    if (list.payload.val().films !== undefined){
+      playlist.films = list.payload.val().films;
+    }
+    return playlist.films.indexOf(filmId) !== -1;
+  }
+
   initMovies(key: any): Observable<any> {
     this.basePathMovies = `${this._user.uid}/playlists/${key}/films`;
     this._movies = this.db.list(this.basePathMovies);
@@ -79,26 +95,43 @@ export class PlaylistService {
     return this.dbMovies;
   }
 
-  public estFavoris(idFilm: string): boolean {
-    let exist = false;
-    let test = this._favoris.snapshotChanges().forEach(value => value.forEach(
-      value1 => {if (value1.payload.val() === idFilm) {
-      exist = true;
-    }}));
-    console.log(test);
-    return exist;
-  }
-
-  public ajouterFavoris(idFilm: string) {
-    console.log(this._favoris.push(idFilm));
-  }
-
-  public suprimerFavoris(idFilm: string) {
-    this._playlists.remove(idFilm);
-  }
-
   public getMoviesId(key: any) {
 
 
   }
+
+  /*public estFavoris(idFilm: string): boolean {
+      let exist = false;
+      this.db.database.ref(this.basePathFavoris).once('value').then((snapshot) => {
+        snapshot.forEach( (childSnapshot) => {
+          if (childSnapshot.val() as string === idFilm) {
+            exist = true;
+          }
+        });
+      });
+      return exist;
+  }*/
+  /*async estFavoris(idFilm: string): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      let exist = false;
+      this.db.database.ref(this.basePathFavoris).once('value').then((snapshot) => {
+        snapshot.forEach( (childSnapshot) => {
+          if (childSnapshot.val() as string === idFilm) {
+            exist = true;
+          }
+        });
+      })
+      setTimeout( () => {
+        resolve(exist);
+      }, 1000);
+    });
+  }*/
+
+  /*public ajouterFavoris(idFilm: string) {
+    this._favoris.push(idFilm);
+  }
+
+  public suprimerFavoris(idFilm: string) {
+    this._favoris.remove(idFilm);
+  }*/
 }

@@ -8,6 +8,7 @@ import {TmdbService} from '../tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFireDatabase} from '@angular/fire/database';
 import {filter} from 'rxjs/operators';
+import {PlaylistService} from '../playlist.service';
 
 @Component({
   selector: 'app-homepage',
@@ -22,12 +23,10 @@ export class HomepageComponent implements OnInit {
   private _trendingMovie: TrendingResult;
   private _seriesTrending: TrendingResult;
 
-  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
-      const listsPath = `lists/${u.uid}`;
-      const lists = db.list(listsPath);
-      this.dbData = lists.valueChanges();
+      this.playlistSvc.ajouterListe("Favoris");
     });
     setTimeout( () =>
         tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
@@ -82,10 +81,6 @@ export class HomepageComponent implements OnInit {
 
   get user(): User {
     return this._user;
-  }
-
-  get lists(): Observable<any> {
-    return this.dbData;
   }
 
   ngOnInit(): void {
