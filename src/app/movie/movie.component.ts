@@ -50,19 +50,15 @@ export class MovieComponent implements OnInit {
     this.playlistSvc.ajouterFilmListe(list, filmId);
   }
 
+  public supprimerFilmListe(list: any, filmId: string) {
+    this.playlistSvc.supprimerListeFilm(list, filmId);
+  }
+
   get listes(): Observable<any> {
     return this.playlistSvc.listes;
   }
 
-  public estFavoris(idFilm: string): boolean {
-    return this.playlistSvc.estFavoris(idFilm);
-  }
-
-  public ajouterFavoris(idFilm: string) {
-    this.playlistSvc.ajouterFavoris(idFilm);
-  }
-
-  public suprimerFavoris(idFilm: string) {
-    this.playlistSvc.suprimerFavoris(idFilm);
+  public estFavoris(list: any): boolean {
+    return this.playlistSvc.estFavoris(list, this._movie.id.toString());
   }
 }

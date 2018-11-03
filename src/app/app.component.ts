@@ -25,9 +25,8 @@ export class AppComponent {
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
-      const listsPath = `lists/${u.uid}`;
-      const lists = db.list(listsPath);
-      this.dbData = lists.valueChanges();
+
+
     });
     setTimeout( () =>
         tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
@@ -82,10 +81,6 @@ export class AppComponent {
 
   get user(): User {
     return this._user;
-  }
-
-  get lists(): Observable<any> {
-    return this.dbData;
   }
 }
 // /yE5d3BUhE8hCnkMUJOo1QDoOGNz.jpg
