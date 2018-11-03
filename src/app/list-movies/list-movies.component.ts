@@ -3,6 +3,7 @@ import {TrendingResult} from '../tmdb-data/Trending';
 import {TmdbService} from '../tmdb.service';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
+import {PlaylistService} from "../playlist.service";
 @Component({
   selector: 'app-list-movies',
   templateUrl: './list-movies.component.html',
@@ -14,10 +15,13 @@ export class ListMoviesComponent implements OnInit {
   @Input('trendings') private _trendings: TrendingResult;
   @Input('start') private _start: number;
   @Input('end') private _end: number;
+  @Input() private _playlist: boolean;
+  @Input() private _list: any;
+
   private _openMovie: boolean;
   private _movie: MovieResponse;
   private _credits: CreditsResult;
-  constructor (private tmdb: TmdbService) {
+  constructor (private tmdb: TmdbService, private playlistSvc: PlaylistService) {
     this._openMovie = false;
   }
 
@@ -70,5 +74,13 @@ export class ListMoviesComponent implements OnInit {
 
   get end(): number {
     return this._end;
+  }
+
+  get playlist(): boolean {
+    return this._playlist;
+  }
+
+  supprimerMoviePlaylist(id: string) {
+    // this.playlistSvc.supprimerListeFilm(this._list, id);
   }
 }

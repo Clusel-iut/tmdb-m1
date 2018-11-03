@@ -57,9 +57,9 @@ export class PlaylistService {
     if (list.payload.val().films !== undefined) {
       playlist.films = list.payload.val().films;
     }
-    const index = playlist.films.indexOf(filmId, 0);
+    const index = playlist.films.indexOf(filmId, 0) + 1;
     if (index > -1) {
-      list.films.splice(index, 1);
+      playlist.films.splice(index, 1);
     }
     this._playlists.update(list.key, playlist);
   }
