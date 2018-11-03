@@ -14,10 +14,13 @@ import {forEach} from '@angular/router/src/utils/collection';
 export class PlaylistService {
   private _playlists: AngularFireList<any>;
   private _favoris: AngularFireList<any>;
+  private _movies: AngularFireList<any>;
   private _user: User;
   private basePath: string;
   private basePathFavoris: string;
+  private basePathMovies: string;
   private dbListes: Observable<any[]>;
+  private dbMovies: Observable<any[]>;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
@@ -38,7 +41,7 @@ export class PlaylistService {
 
   public ajouterFilmListe(list: any, filmId: string) {
     const playlist = new Playlist(list.payload.val().name);
-    if (list.payload.val().films !== undefined){
+    if (list.payload.val().films !== undefined) {
       playlist.films = list.payload.val().films;
     }
     playlist.films.push(filmId);
@@ -65,6 +68,17 @@ export class PlaylistService {
     return this.dbListes;
   }
 
+  initMovies(key: any): Observable<any> {
+    this.basePathMovies = `${this._user.uid}/playlists/${key}/films`;
+    this._movies = this.db.list(this.basePathMovies);
+    this.dbMovies = this._movies.snapshotChanges();
+    return this.dbMovies;
+  }
+
+  get movies(): Observable<any> {
+    return this.dbMovies;
+  }
+
   public estFavoris(idFilm: string): boolean {
     let exist = false;
     let test = this._favoris.snapshotChanges().forEach(value => value.forEach(
@@ -81,5 +95,10 @@ export class PlaylistService {
 
   public suprimerFavoris(idFilm: string) {
     this._playlists.remove(idFilm);
+  }
+
+  public getMoviesId(key: any) {
+
+
   }
 }

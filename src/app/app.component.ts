@@ -8,6 +8,7 @@ import {AngularFireDatabase} from '@angular/fire/database';
 import {filter} from 'rxjs/operators';
 import {CreditsResult} from './tmdb-data/MovieCredits';
 import {TrendingResult} from './tmdb-data/Trending';
+import {SearchMovieResponse} from "./tmdb-data/searchMovie";
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class AppComponent {
   private _credits: CreditsResult;
   private _trendingMovie: TrendingResult;
   private _seriesTrending: TrendingResult;
+  private _searchMovie: SearchMovieResponse;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
@@ -53,9 +55,17 @@ export class AppComponent {
           .then( (ts: TrendingResult) => console.log('Trending :', this._seriesTrending = ts) )
           .catch( err => console.error('Error getting series:', err) ),
       1000 );
+    setTimeout( () =>
+        tmdb.searchMovie('Le roi')
+          .then( (sm: SearchMovieResponse) => console.log('Trending :', this._searchMovie = sm) )
+          .catch( err => console.error('Error getting series:', err) ),
+      1000 );
+
 
   }
-
+  get search(): SearchMovieResponse{
+    return this._searchMovie;
+  }
   get movie(): MovieResponse {
     return this._movie;
   }

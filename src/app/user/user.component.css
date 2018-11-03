@@ -1,6 +1,8 @@
 .wrapper {
   display: inline-block;
   align-items: normal;
+  height: 100%;
+  float: left;
 }
 
 #sidebar {
@@ -31,4 +33,8 @@ button {
 
 pre {
   color: #fff;
+}
+
+.list{
+  margin-left: 18%;
 }
