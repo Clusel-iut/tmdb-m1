@@ -1,5 +1,6 @@
 body {
-  background-color: #333333;
+  background: #333333;
+  background-repeat: repeat-x;
 }
 
 input {
@@ -7,9 +8,13 @@ input {
   align-content: center;
 }
 
-.texte {
-  position: absolute;
+#research {
   margin-left: 1cm;
   font-size: 0.8cm;
   color: #e50914;
+}
+
+#result {
+  margin-left: 1cm;
+  font-size: 0.8cm;
 }

@@ -3,14 +3,15 @@
     <img class="media-object pull-left poster" [src]="getPath(movie.poster_path)" />
     <div class="media-body">
       <h1 class="span12">{{movie.title}}</h1>
-      <button *ngIf="open" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1">
-        <img src="../assets/open.png">
-      </button>
-      <button *ngIf="!open" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2">
-        <img src="../assets/close.png">
-      </button>
-        <ul *ngIf="!open" class="dropdown-menu" style="display:contents" aria-labelledby="dropdownMenu" id="playlist_menu">
-          <li *ngFor="let liste of listes | async"><a *ngIf="liste.payload.val().name !== 'Favoris'"(click)="ajouterFilmListe(liste, movie.id.toString())"><img src="../assets/open.png"/> {{ liste.payload.val().name }}</a></li>
+      <div *ngIf="user">
+        <button *ngIf="open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1">
+          <img src="../assets/open.png">
+        </button>
+        <button *ngIf="!open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2">
+          <img src="../assets/close.png">
+        </button>
+        <ul *ngIf="!open" class="dropdown-menu" style="display:contents" aria-labelledby="dropdownMenu">
+          <li *ngFor="let liste of listes | async"><a *ngIf="liste.payload.val().name !== 'Favoris'" (click)="ajouterFilmListe(liste, movie.id.toString())"><img src="../assets/open.png"/> {{ liste.payload.val().name }}</a></li>
         </ul>
     <div *ngFor="let liste of listes | async">
       <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/add_fav.png" (click)="ajouterFilmListe(liste, movie.id.toString())">

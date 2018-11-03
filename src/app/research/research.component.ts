@@ -20,12 +20,20 @@ export class ResearchComponent implements OnInit {
   ngOnInit() {
   }
 
-  researchElements() {
+  research(request: string) {
     setTimeout( () =>
-        this._service.getTrendingMovies()
+        this._service.searchMovie(request)
           .then( (tm: TrendingResult) => console.log('Trending :', this._trendingMovie = tm) )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
+  }
+
+  researchElements() {
     return this._trendingMovie;
   }
+
+  debug() {
+    console.log('hello');
+  }
+
 }

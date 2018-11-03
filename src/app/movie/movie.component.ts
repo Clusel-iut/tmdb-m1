@@ -4,6 +4,9 @@ import {CreditsResult} from '../tmdb-data/MovieCredits';
 import {UserComponent} from '../user/user.component';
 import {PlaylistService} from '../playlist.service';
 import {Observable} from 'rxjs';
+import {AngularFireAuth} from '@angular/fire/auth';
+import {filter} from 'rxjs/internal/operators';
+import {User} from 'firebase';
 
 @Component({
   selector: 'app-movie',
@@ -16,11 +19,13 @@ export class MovieComponent implements OnInit {
   @Input() private _movie: MovieResponse;
   @Input() private _credits: CreditsResult;
   private _switchPlaylists: boolean;
-  private _switchDropdown: boolean;
+  private _user: User;
 
-  constructor(private playlistSvc: PlaylistService) {
+  constructor(private playlistSvc: PlaylistService,  public anAuth: AngularFireAuth) {
     this._switchPlaylists = true;
-    this._switchDropdown = false;
+    this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
+      this._user = u;
+    });
   }
 
   get movie(): MovieResponse {
@@ -47,6 +52,7 @@ export class MovieComponent implements OnInit {
   }
 
   public ajouterFilmListe(list: any, filmId: string) {
+    this._switchPlaylists = !this._switchPlaylists;
     this.playlistSvc.ajouterFilmListe(list, filmId);
   }
 
@@ -60,5 +66,9 @@ export class MovieComponent implements OnInit {
 
   public estFavoris(list: any): boolean {
     return this.playlistSvc.estFavoris(list, this._movie.id.toString());
+  }
+
+  get user(): User {
+    return this._user;
   }
 }

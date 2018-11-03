@@ -7,7 +7,6 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {Playlist} from './tmdb-data/Playlist';
 import {forEach} from '@angular/router/src/utils/collection';
-import EventType = firebase.database.EventType;
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,12 @@ import EventType = firebase.database.EventType;
 export class PlaylistService {
   private _playlists: AngularFireList<any>;
   private _favoris: AngularFireList<any>;
+  private _movies: AngularFireList<any>;
   private _user: User;
   private basePath: string;
+  private basePathMovies: string;
   private dbListes: Observable<any[]>;
+  private dbMovies: Observable<any[]>;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
@@ -47,7 +49,7 @@ export class PlaylistService {
 
   public ajouterFilmListe(list: any, filmId: string) {
     const playlist = new Playlist(list.payload.val().name);
-    if (list.payload.val().films !== undefined){
+    if (list.payload.val().films !== undefined) {
       playlist.films = list.payload.val().films;
     }
     playlist.films.push(filmId);
@@ -80,6 +82,22 @@ export class PlaylistService {
       playlist.films = list.payload.val().films;
     }
     return playlist.films.indexOf(filmId) !== -1;
+  }
+
+  initMovies(key: any): Observable<any> {
+    this.basePathMovies = `${this._user.uid}/playlists/${key}/films`;
+    this._movies = this.db.list(this.basePathMovies);
+    this.dbMovies = this._movies.snapshotChanges();
+    return this.dbMovies;
+  }
+
+  get movies(): Observable<any> {
+    return this.dbMovies;
+  }
+
+  public getMoviesId(key: any) {
+
+
   }
 
   /*public estFavoris(idFilm: string): boolean {
