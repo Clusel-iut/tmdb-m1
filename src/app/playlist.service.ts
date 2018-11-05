@@ -7,6 +7,8 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {Playlist} from './tmdb-data/Playlist';
 import {forEach} from '@angular/router/src/utils/collection';
+import {MovieResponse} from './tmdb-data/Movie';
+import {TrendingDetails} from './tmdb-data/Trending';
 
 @Injectable({
   providedIn: 'root'
@@ -71,15 +73,14 @@ export class PlaylistService {
   }
 
   public supprimerListeFilm(list: any, filmId: string) {
-    const playlist = new Playlist(list.payload.val().name);
-    if (list.payload.val().films !== undefined) {
-      playlist.films = list.payload.val().films;
-    }
-    const index = playlist.films.indexOf(filmId, 0) + 1;
-    if (index > -1) {
-      playlist.films.splice(index, 1);
-    }
-    this._playlists.update(list.key, playlist);
+    this.initMovies(list.key).forEach(k => {
+      k.forEach(finalKey => {
+        console.log(finalKey.payload.node_.value_ + "     =    " + filmId);
+        if (finalKey.payload.node_.value_ === filmId) {
+          finalKey.remove();
+        }
+      });
+    });
   }
 
   get listes(): Observable<any> {
