@@ -39,10 +39,16 @@ export class ListMoviesComponent implements OnInit {
     return this._openMovie;
   }
   openMovie(elem: any) {
+    let movie: boolean;
     setTimeout( () =>
         this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
           .getMovie(elem.id)
-          .then( (m: MovieResponse) => console.log( this._movie = m) )
+          .then( (m: MovieResponse) => {
+            console.log( this._movie = m);
+            if (m.title === elem.title) {
+              this._openMovie = true;
+            }
+          } )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
     setTimeout( () =>
@@ -52,10 +58,6 @@ export class ListMoviesComponent implements OnInit {
           } )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
-    if (this._movie.title === elem.title) {
-      this._openMovie = true;
-    }
-     // this.dialog.open(DialogfilmComponent, {height: '90%', width: '70%', data: {elem: elem}});
   }
 
   get movie(): MovieResponse {
