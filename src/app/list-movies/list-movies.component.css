@@ -72,4 +72,6 @@ img{
   cursor: pointer;
 }
 
-
+#noresult {
+  color: #f4f4f4f4;
+}
