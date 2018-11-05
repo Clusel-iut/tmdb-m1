@@ -85,6 +85,6 @@ export class ListMoviesComponent implements OnInit {
   }
 
   supprimerMoviePlaylist(id: string) {
-    // this.playlistSvc.supprimerListeFilm(this._list, id);
+    this.playlistSvc.supprimerListeFilm(this._list, id);
   }
 }

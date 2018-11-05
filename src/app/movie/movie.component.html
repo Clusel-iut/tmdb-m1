@@ -18,7 +18,7 @@
           <li *ngFor="let liste of listes | async"><a *ngIf="liste.payload.val().name !== 'Favoris'" (click)="ajouterFilmListe(liste, movie.id.toString())"><img src="../assets/open.png"/> {{ liste.payload.val().name }}</a></li>
         </ul>
     <div *ngFor="let liste of listes | async">
-      <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/add_fav.png" (click)="ajouterFilmListe(liste, movie.id.toString())">
+      <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/add_fav2.png" (click)="ajouterFilmListe(liste, movie.id.toString())">
       <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/rem_fav.png" (click)="supprimerFilmListe(liste, movie.id.toString())">
     </div>
 
