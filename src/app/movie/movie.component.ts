@@ -51,8 +51,10 @@ export class MovieComponent implements OnInit {
     this._switchPlaylists = !this._switchPlaylists;
   }
 
-  public ajouterFilmListe(list: any, filmId: string) {
-    this._switchPlaylists = !this._switchPlaylists;
+  public ajouterFilmListe(list: any, filmId: string, open: boolean) {
+    if (open) {
+      this._switchPlaylists = !this._switchPlaylists;
+    }
     this.playlistSvc.ajouterFilmListe(list, filmId);
   }
 
