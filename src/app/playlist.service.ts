@@ -28,12 +28,15 @@ export class PlaylistService {
       this._playlists = this.db.list(this.basePath);
       this.dbListes = this._playlists.snapshotChanges();
       let exist = false;
-      this.db.list(`${u.uid}`).snapshotChanges().forEach( val => { if(val.length > 0) {
-        exist = true;
-      }});
-      if(exist === true) {
-        this.ajouterListe("Favoris");
+      this.db.list(`${u.uid}`).query.once("value").then(value => {
+        if (value.numChildren() > 0) {
+         exist = true;
+      }}).then(value => {
+        if (!exist) {
+          this.ajouterListe("Favoris");
+        }
       }
+    );
     });
   }
 
@@ -84,11 +87,20 @@ export class PlaylistService {
   }
 
   public estFavoris(list: any, filmId: string): boolean {
-    const playlist = new Playlist(list.payload.val().name);
-    if (list.payload.val().films !== undefined){
-      playlist.films = list.payload.val().films;
-    }
-    return playlist.films.indexOf(filmId) !== -1;
+    let exist;
+    this.db.list(`${this._user.uid}`).query.once("value").then(value => {
+      value.forEach(k => {
+        k.forEach(finalKey => {
+          console.log(finalKey.val().payload.node_.value_);
+          if (finalKey.val().payload.node_.value_ === filmId) {
+            exist = true;
+          }
+        });
+      });
+    }).then(value => {
+      return exist;
+    });
+    return exist;
   }
 
   initMovies(key: any): Observable<any> {

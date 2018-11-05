@@ -21,7 +21,7 @@ export class MovieComponent implements OnInit {
   private _switchPlaylists: boolean;
   private _user: User;
 
-  constructor(private playlistSvc: PlaylistService,  public anAuth: AngularFireAuth) {
+  constructor(public playlistSvc: PlaylistService,  public anAuth: AngularFireAuth) {
     this._switchPlaylists = true;
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
