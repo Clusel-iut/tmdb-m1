@@ -1,5 +1,5 @@
 body {
-  background: #333333;
+  background: #333;
   background-repeat: repeat-x;
 }
 
@@ -9,12 +9,17 @@ input {
 }
 
 #research {
+   margin-left: 1cm;
+   font-size: 0.8cm;
+  color: #f4f4f4f4;
+ }
+
+#result {
   margin-left: 1cm;
   font-size: 0.8cm;
   color: #e50914;
 }
 
-#result {
+#movie {
   margin-left: 1cm;
-  font-size: 0.8cm;
 }
