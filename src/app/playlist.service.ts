@@ -27,6 +27,13 @@ export class PlaylistService {
       this.basePath = `${u.uid}/playlists`;
       this._playlists = this.db.list(this.basePath);
       this.dbListes = this._playlists.snapshotChanges();
+      let exist = false;
+      this.db.list(`${u.uid}`).snapshotChanges().forEach( val => { if(val.length > 0) {
+        exist = true;
+      }});
+      if(exist === true) {
+        this.ajouterListe("Favoris");
+      }
     });
   }
 

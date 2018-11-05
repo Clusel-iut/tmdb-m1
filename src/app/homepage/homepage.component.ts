@@ -26,7 +26,6 @@ export class HomepageComponent implements OnInit {
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
-      this.playlistSvc.ajouterListe("Favoris");
     });
     setTimeout( () =>
         tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB

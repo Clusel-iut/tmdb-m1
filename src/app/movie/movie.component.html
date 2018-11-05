@@ -1,8 +1,12 @@
 
   <div class="movie media" >
+
     <img class="media-object pull-left poster" [src]="getPath(movie.poster_path)" />
+
     <div class="media-body">
+
       <h1 class="span12">{{movie.title}}</h1>
+
       <div *ngIf="user">
         <button *ngIf="open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1">
           <img src="../assets/open.png">
@@ -18,11 +22,14 @@
       <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/rem_fav.png" (click)="supprimerFilmListe(liste, movie.id.toString())">
     </div>
 
+    </div>
+
       <div>
         <label class="detail_title">Genres :</label>
         <label *ngFor="let genre of movie.genres">
            {{genre.name}}/
         </label>
+
       </div>
       <label class="detail_title">Distribution :</label>
       <ul>
@@ -30,17 +37,19 @@
             {{cast.character}} : {{cast.name}}
           </li>
       </ul>
+
       <div>
         <label class="detail_title">Durée :</label>
         {{movie.runtime}} minutes
       </div>
+
       <div>
         <label class="detail_title">Note :</label>
         {{movie.vote_average}} / 10
       </div>
+
     </div>
 
-  </div>
   </div>
   <label class="detail_title" style="margin-top: 2%">Synopsis :</label>
   <div class="description">
