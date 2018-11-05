@@ -39,7 +39,6 @@ export class ListMoviesComponent implements OnInit {
     return this._openMovie;
   }
   openMovie(elem: any) {
-    this._openMovie = true;
     setTimeout( () =>
         this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
           .getMovie(elem.id)
@@ -53,6 +52,9 @@ export class ListMoviesComponent implements OnInit {
           } )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
+    if (this._movie.title === elem.title) {
+      this._openMovie = true;
+    }
      // this.dialog.open(DialogfilmComponent, {height: '90%', width: '70%', data: {elem: elem}});
   }
 
