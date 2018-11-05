@@ -19,3 +19,12 @@
   margin-left: 13%;
   margin-top: 30%;
 }
+
+body{
+  position: absolute;
+  height: 1500px;
+  width: 100%;
+  background-color: #222;
+}
+
+
