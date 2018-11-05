@@ -1,5 +1,5 @@
 <div id="trendingsMovies" >
-  <h3 class="">TENDANCES</h3>
+  <h3 id="trendings" class="text" style="text-color:  #f5f5f5;">TENDANCES</h3>
   <hr/>
   <div class="" *ngIf="!!trendingsMovies">
     <h4>Films de la semaine</h4>
@@ -7,7 +7,7 @@
   </div>
 </div>
 <div id="trendingsSeries">
-  <div class="" *ngIf="!!trendingsSeries">
+  <div class="text" *ngIf="!!trendingsSeries">
     <h4>Séries de la semaine</h4>
     <app-list-movies [trendings]="trendingsSeries" [start]=0 [end]=5></app-list-movies>
   </div>

@@ -13,7 +13,6 @@ import { MovieComponent } from './movie/movie.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
 import { ResearchComponent } from './research/research.component';
-import { DialogfilmComponent } from './popup/dialogfilm/dialogfilm.component';
 import {MatButtonModule, MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
@@ -37,7 +36,6 @@ const appRoutes: Routes = [
     NavbarComponent,
     ListMoviesComponent,
     ResearchComponent,
-    DialogfilmComponent,
     HomepageComponent,
     PlaylistComponent
   ],
@@ -56,7 +54,6 @@ const appRoutes: Routes = [
     )
   ],
   providers: [TmdbService],
-  bootstrap: [AppComponent],
-  entryComponents: [ DialogfilmComponent ]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

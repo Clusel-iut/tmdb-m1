@@ -31,8 +31,8 @@ export class PlaylistService {
       this.db.list(`${u.uid}`).snapshotChanges().forEach( val => { if(val.length > 0) {
         exist = true;
       }});
-      if(exist === true) {
-        this.ajouterListe("Favoris");
+      if (exist) {
+        this.ajouterListe('Favoris');
       }
     });
   }

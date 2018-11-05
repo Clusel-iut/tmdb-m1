@@ -13,9 +13,19 @@
 #trendingsMovies{
   margin-left: 13%;
   margin-top: 5%;
+  text-color:  #f5f5f5;
 }
 
 #trendingsSeries{
   margin-left: 13%;
   margin-top: 30%;
+
+}
+
+h3, h2, h4{color:  #f5f5f5;}
+
+hr{
+  background-color: #f5f5f5 ;
+  width: 90%;
+  margin-right: 10%;
 }
