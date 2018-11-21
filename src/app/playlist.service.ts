@@ -10,6 +10,11 @@ import {forEach} from '@angular/router/src/utils/collection';
 import {MovieResponse} from './tmdb-data/Movie';
 import {TrendingDetails} from './tmdb-data/Trending';
 
+interface MONDATA {
+  films: string[];
+  name: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -28,14 +33,25 @@ export class PlaylistService {
       this._user = u;
       this.basePath = `${u.uid}/playlists`;
       this._playlists = this.db.list(this.basePath);
+
+
+      this._playlists.valueChanges().subscribe( (data: MONDATA[]) => {
+        console.log('PLAYLIST CHANGE TO', data);
+        console.log(
+          'Tous les films dans des listes',
+          data.reduce( (acc, d) => [...acc, ...d.films], [] )
+          );
+      } );
+
+
       this.dbListes = this._playlists.snapshotChanges();
       let exist = false;
-      this.db.list(`${u.uid}`).query.once("value").then(value => {
+      this.db.list(`${u.uid}`).query.once('value').then(value => {
         if (value.numChildren() > 0) {
          exist = true;
       }}).then(value => {
         if (!exist) {
-          this.ajouterListe("Favoris");
+          this.ajouterListe('Favoris');
         }
       }
     );
@@ -75,7 +91,7 @@ export class PlaylistService {
   public supprimerListeFilm(list: any, filmId: string) {
     this.initMovies(list.key).forEach(k => {
       k.forEach(finalKey => {
-        console.log(finalKey.payload.node_.value_ + "     =    " + filmId);
+        console.log(finalKey.payload.node_.value_ + '     =    ' + filmId);
         if (finalKey.payload.node_.value_ === filmId) {
           finalKey.remove();
         }
@@ -89,7 +105,7 @@ export class PlaylistService {
 
   public estFavoris(list: any, filmId: string): boolean {
     let exist;
-    this.db.list(`${this._user.uid}`).query.once("value").then(value => {
+    this.db.list(`${this._user.uid}`).query.once('value').then(value => {
       value.forEach(k => {
         k.forEach(finalKey => {
           console.log(finalKey.val().payload.node_.value_);
