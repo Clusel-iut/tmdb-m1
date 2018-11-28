@@ -3,7 +3,10 @@ import {TrendingResult} from '../tmdb-data/Trending';
 import {TmdbService} from '../tmdb.service';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
-import {PlaylistService} from "../playlist.service";
+import {PlaylistService} from '../playlist.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { PopupComponent } from '../popup/popup.component';
+
 @Component({
   selector: 'app-list-movies',
   templateUrl: './list-movies.component.html',
@@ -21,7 +24,7 @@ export class ListMoviesComponent implements OnInit {
   private _openMovie: boolean;
   private _movie: MovieResponse;
   private _credits: CreditsResult;
-  constructor (private tmdb: TmdbService, private playlistSvc: PlaylistService) {
+  constructor (private tmdb: TmdbService, private playlistSvc: PlaylistService, public dialog: MatDialog) {
     this._openMovie = false;
   }
 
@@ -84,7 +87,24 @@ export class ListMoviesComponent implements OnInit {
     return this._playlist;
   }
 
-  supprimerMoviePlaylist(id: string) {
-    this.playlistSvc.supprimerListeFilm(this._list, id);
+  supprimerMoviePlaylist(nameMovie: string, filmId: string) {
+    this.playlistSvc.supprimerListeFilm(this._list, filmId);
+    this.openModal(nameMovie, false);
+  }
+
+  openModal(name: string, Ajoute: boolean) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: name,
+      estAjoute: Ajoute
+    };
+    const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      console.log(result);
+    });
   }
 }

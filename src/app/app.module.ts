@@ -17,6 +17,9 @@ import {MatButtonModule, MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { HomepageComponent } from './homepage/homepage.component';
+import { PopupComponent } from './popup/popup.component';
+
+
 
 const appRoutes: Routes = [
   { path: 'home', component: HomepageComponent},
@@ -36,6 +39,7 @@ const appRoutes: Routes = [
     ListMoviesComponent,
     ResearchComponent,
     HomepageComponent,
+    PopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -50,6 +54,9 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     )
+  ],
+  entryComponents: [
+    PopupComponent
   ],
   providers: [TmdbService],
   bootstrap: [AppComponent]
