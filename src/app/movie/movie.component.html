@@ -20,8 +20,8 @@
         </ul>
 
         <div *ngFor="let liste of listes | async">
-          <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/add_fav2.png" (click)="ajouterFilmListe(liste, movie.id.toString(), false)">
-          <img *ngIf="liste.payload.val().name === 'Favoris'" class="add" src="../assets/rem_fav.png" (click)="supprimerFilmListe(liste, movie.id.toString())">
+          <img *ngIf="liste.payload.val().name === 'Favoris'  && !estFavoris(liste)" class="add" src="../assets/add_fav2.png" (click)="ajouterFilmListe(liste, movie.id.toString(), false)">
+          <img *ngIf="liste.payload.val().name === 'Favoris' && estFavoris(liste)" class="add" src="../assets/rem_fav.png" (click)="supprimerFilmListe(liste, movie.id.toString())">
         </div>
 
     </div>
