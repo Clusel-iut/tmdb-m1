@@ -5,28 +5,21 @@ import {Observable} from 'rxjs';
 import {TmdbService} from './tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
-import {Playlist} from './tmdb-data/Playlist';
-import {forEach} from '@angular/router/src/utils/collection';
-import {MovieResponse} from './tmdb-data/Movie';
-import {TrendingDetails} from './tmdb-data/Trending';
-
-interface MONDATA {
-  films: string[];
-  name: string;
-}
+import {LISTE, Playlist} from './tmdb-data/Liste';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistService {
   private _playlists: AngularFireList<any>;
-  private _favoris: AngularFireList<any>;
   private _movies: AngularFireList<any>;
   private _user: User;
   private basePath: string;
   private basePathMovies: string;
   private dbListes: Observable<any[]>;
   private dbMovies: Observable<any[]>;
+  private favoris: LISTE;
+  private listes: LISTE[];
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
@@ -35,12 +28,24 @@ export class PlaylistService {
       this._playlists = this.db.list(this.basePath);
 
 
-      this._playlists.valueChanges().subscribe( (data: MONDATA[]) => {
+      this._playlists.valueChanges().subscribe( (data: LISTE[]) => {
         console.log('PLAYLIST CHANGE TO', data);
         console.log(
           'Tous les films dans des listes',
           data.reduce( (acc, d) => [...acc, ...d.films], [] )
           );
+        data.forEach(value => {
+          if(value.name === 'Favoris') {
+            this.favoris = value;
+            console.log("-------------------------")
+            console.log(this.favoris);
+          }
+          else {
+            this.listes.push(value);
+            console.log("-------------------------")
+            console.log(value);
+          }
+        });
       } );
 
 
@@ -75,17 +80,12 @@ export class PlaylistService {
     );*/
   }
 
-  public ajouterFilmListe(list: any, filmId: string) {
-    const playlist = new Playlist(list.payload.val().name);
-    if (list.payload.val().films !== undefined) {
-      playlist.films = list.payload.val().films;
-    }
-    playlist.films.push(filmId);
-    this._playlists.update(list.key, playlist);
+  public ajouterFilmListe(LISTE: any, filmId: string) {
+    LISTE.films.push(filmId);
   }
 
-  public suprimerListe($key: string) {
-    this._playlists.remove($key);
+  public suprimerListe(LISTE: any) {
+    this._playlists.remove(LISTE);
   }
 
   public supprimerListeFilm(list: any, filmId: string) {
@@ -103,9 +103,13 @@ export class PlaylistService {
     return this.dbListes;
   }
 
-  public estFavoris(list: any, filmId: string): boolean {
-    let exist;
-    this.db.list(`${this._user.uid}`).query.once('value').then(value => {
+  get getFavoris(): LISTE {
+    return this.getFavoris;
+  }
+
+  public estFavoris(filmId: string): boolean {
+    let exist = false;
+    /*this.db.list(`${this._user.uid}`).query.once('value').then(value => {
       value.forEach(k => {
         k.forEach(finalKey => {
           console.log(finalKey.val().payload.node_.value_);
@@ -116,7 +120,13 @@ export class PlaylistService {
       });
     }).then(value => {
       return exist;
-    });
+    });*/
+
+    this.favoris.films.forEach(value => {
+      if(value === filmId) {
+      exist = true;
+    }});
+
     return exist;
   }
 

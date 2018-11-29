@@ -1,12 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
-import {UserComponent} from '../user/user.component';
 import {PlaylistService} from '../playlist.service';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/internal/operators';
 import {User} from 'firebase';
+import {LISTE} from '../tmdb-data/Liste';
 
 @Component({
   selector: 'app-movie',
@@ -66,8 +66,12 @@ export class MovieComponent implements OnInit {
     return this.playlistSvc.listes;
   }
 
-  public estFavoris(list: any): boolean {
-    return this.playlistSvc.estFavoris(list, this._movie.id.toString());
+  get favoris(): LISTE {
+    return this.playlistSvc.getFavoris;
+  }
+
+  public estFavoris(): boolean {
+    return this.playlistSvc.estFavoris(this._movie.id.toString());
   }
 
   get user(): User {

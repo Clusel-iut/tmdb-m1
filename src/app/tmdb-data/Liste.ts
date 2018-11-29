@@ -11,3 +11,8 @@ export class Playlist {
     }
   }
 }
+
+export interface LISTE {
+  films: string[];
+  name: string;
+}
