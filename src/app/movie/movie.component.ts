@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
+import {UserComponent} from '../user/user.component';
 import {PlaylistService} from '../playlist.service';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/internal/operators';
 import {User} from 'firebase';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { PopupComponent } from '../popup/popup.component';
 import {LISTE} from '../tmdb-data/Liste';
 
 @Component({
@@ -21,7 +24,7 @@ export class MovieComponent implements OnInit {
   private _switchPlaylists: boolean;
   private _user: User;
 
-  constructor(public playlistSvc: PlaylistService,  public anAuth: AngularFireAuth) {
+  constructor(public playlistSvc: PlaylistService,  public anAuth: AngularFireAuth, public dialog: MatDialog) {
     this._switchPlaylists = true;
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
@@ -56,11 +59,30 @@ export class MovieComponent implements OnInit {
       this._switchPlaylists = !this._switchPlaylists;
     }
     this.playlistSvc.ajouterFilmListe(list, filmId);
+    this.openModal(list, true);
   }
 
   public supprimerFilmListe(list: any, filmId: string) {
     this.playlistSvc.supprimerListeFilm(list, filmId);
+    this.openModal(list, false);
   }
+
+  openModal(list: any, Ajoute: boolean) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: this.movie.title,
+      list: list.payload.val().name,
+      estAjoute: Ajoute
+  };
+    const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      console.log(result);
+    });
+    }
 
   get listes(): Observable<any> {
     return this.playlistSvc.listes;
