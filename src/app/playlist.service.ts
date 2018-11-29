@@ -46,26 +46,22 @@ export class PlaylistService {
   }
 
   public ajouterListe(listName: string, event: Event = null) {
-    if (event != null) { event.preventDefault(); }
+    if (event != null) {
+      event.preventDefault();
+    }
     let exist = false;
-    this._playlists.query.once('value').then(value => {
-      value.forEach(list => {
-        console.log('-----------------------------------');
-        console.log(list.val().payload.node_.value_);
-        if (value.val().name === listName) {
-          exist = true;
-        }
-      });
-      }).then(value => {
-        if (!exist) {
-          const liste: LISTE = {
-            name: listName,
-            films: []
-          };
-          this._playlists.push(liste);
-        }
+    this.listes.forEach(list => {
+      if (list.name === listName) {
+        exist = true;
       }
-    );
+    });
+    if (!exist) {
+      const liste: LISTE = {
+        name: listName,
+        films: []
+      };
+      this._playlists.push(liste);
+    }
   }
 
   public suprimerListe(liste: LISTE) {
@@ -85,7 +81,13 @@ export class PlaylistService {
   }
 
   public supprimerListeFilm(liste: LISTE, filmId: string) {
-
+    const updateListe: LISTE = {
+      name: liste.name,
+      films: liste.films
+    };
+    const index = updateListe.films.indexOf(filmId);
+    updateListe.films.splice(index);
+    this._playlists.update(liste.$key, updateListe);
   }
 
   get getListes(): LISTE[] {
