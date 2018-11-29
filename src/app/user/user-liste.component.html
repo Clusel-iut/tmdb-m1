@@ -5,11 +5,17 @@
       <div class="sidebar-header">
         <h3>Mes listes :</h3>
       </div>
-      <section *ngFor="let liste of listes | async">
-        <a (click)="suprimerListe(liste.key)">
+      <section>
+        <a (click)="suprimerListe(favoris)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(liste, liste.payload.val().name )">{{ liste.payload.val().name }}</label>
+        <label (click)="afficherListe(favoris, favoris.name )">{{ favoris.name }}</label>
+      </section>
+      <section *ngFor="let liste of listes">
+        <a (click)="suprimerListe(liste)">
+          <img src="../assets/delete.png"/>
+        </a>
+        <label (click)="afficherListe(liste, liste.name )">{{ liste.name }}</label>
       </section>
       <form (submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Ajouter liste : </p>

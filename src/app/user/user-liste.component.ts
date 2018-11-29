@@ -3,24 +3,22 @@ import {MovieResponse} from '../tmdb-data/Movie';
 import {User} from 'firebase';
 import {TmdbService} from '../tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {filter} from 'rxjs/operators';
-import {Observable} from 'rxjs';
-import {Playlist} from '../tmdb-data/Playlist';
 import {PlaylistService} from '../playlist.service';
 import {TrendingDetails, TrendingResult} from '../tmdb-data/Trending';
+import {LISTE} from '../tmdb-data/Liste';
 
 @Component({
   selector: 'app-user',
-  templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  templateUrl: './user-liste.component.html',
+  styleUrls: ['./user-liste.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserListeComponent implements OnInit {
 
   private _user: User;
   private _listMovies: TrendingResult;
   private _nameList: string;
-  private _list: any;
+  private _list: LISTE;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
@@ -35,25 +33,26 @@ export class UserComponent implements OnInit {
     this.playlistSvc.ajouterListe(listName, event);
   }
 
-  public suprimerListe($key: string) {
-    this.playlistSvc.suprimerListe($key);
+  public suprimerListe(liste: LISTE) {
+    this.playlistSvc.suprimerListe(liste);
   }
 
-  get listes(): Observable<any> {
-    return this.playlistSvc.listes;
+  get listes(): LISTE[] {
+    return this.playlistSvc.getListes;
   }
 
-  afficherListe(list: any, nameList: string) {
+  get favoris(): LISTE {
+    return this.playlistSvc.getFavoris;
+  }
+
+  afficherListe(list: LISTE, nameList: string) {
     this._listMovies = {results: []};
     this._list = list;
-    this.playlistSvc.initMovies(list.key).forEach(k => {
-      k.forEach(finalKey => {
-        console.log(finalKey.payload.node_.value_);
+    this._list.films.forEach(filmId => {
         setTimeout( () =>
             this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-              .getMovie(finalKey.payload.node_.value_)
+              .getMovie(Number(filmId))
               .then( (m: MovieResponse) => {
-                console.log('Coucou');
                 const tr: TrendingDetails = {poster_path: m.poster_path, id: m.id, title: m.title, original_title: m.original_title};
                 this._listMovies.results.push(tr);
               } )
@@ -61,7 +60,6 @@ export class UserComponent implements OnInit {
           1000 );
       });
       this._nameList = nameList;
-    });
   }
 
   get listMovies(): TrendingResult {
@@ -72,7 +70,7 @@ export class UserComponent implements OnInit {
     return this._nameList;
   }
 
-  get list(): any {
+  get list(): LISTE {
     return this._list;
   }
 

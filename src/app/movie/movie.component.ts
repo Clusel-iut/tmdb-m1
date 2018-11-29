@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
-import {UserComponent} from '../user/user.component';
+import {UserListeComponent} from '../user/user-liste.component';
 import {PlaylistService} from '../playlist.service';
 import {Observable} from 'rxjs';
 import {AngularFireAuth} from '@angular/fire/auth';
@@ -31,19 +31,19 @@ export class MovieComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+  }
+
+  get credits(): CreditsResult {
+    return this._credits;
+  }
+
   get movie(): MovieResponse {
     return this._movie;
   }
 
   getPath(path: string): string {
     return `https://image.tmdb.org/t/p/w500${path}`;
-  }
-
-  ngOnInit() {
-  }
-
-  get credits(): CreditsResult {
-    return this._credits;
   }
 
   get open(): boolean {
@@ -54,16 +54,22 @@ export class MovieComponent implements OnInit {
     this._switchPlaylists = !this._switchPlaylists;
   }
 
-  public ajouterFilmListe(list: any, filmId: string, open: boolean) {
+  public ajouterFilmListe(list: LISTE, filmId: string, open: boolean) {
     if (open) {
       this._switchPlaylists = !this._switchPlaylists;
     }
     this.playlistSvc.ajouterFilmListe(list, filmId);
+    if(list.name === 'Favoris') {
+      this.movie.estFavoris = !this.movie.estFavoris;
+    }
     this.openModal(list, true);
   }
 
-  public supprimerFilmListe(list: any, filmId: string) {
+  public supprimerFilmListe(list: LISTE, filmId: string) {
     this.playlistSvc.supprimerListeFilm(list, filmId);
+    if(list.name === 'Favoris') {
+      this.movie.estFavoris = !this.movie.estFavoris;
+    }
     this.openModal(list, false);
   }
 
@@ -76,24 +82,20 @@ export class MovieComponent implements OnInit {
       title: this.movie.title,
       list: list.payload.val().name,
       estAjoute: Ajoute
-  };
+    };
     const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialog was closed');
       console.log(result);
     });
-    }
+  }
 
-  get listes(): Observable<any> {
-    return this.playlistSvc.listes;
+  get listes(): LISTE[] {
+    return this.playlistSvc.getListes;
   }
 
   get favoris(): LISTE {
     return this.playlistSvc.getFavoris;
-  }
-
-  public estFavoris(): boolean {
-    return this.playlistSvc.estFavoris(this._movie.id.toString());
   }
 
   get user(): User {

@@ -50,4 +50,5 @@ export interface MovieResponse {
   video?: boolean;
   vote_average?: number;
   vote_count?: number;
+  estFavoris?: boolean;
 }

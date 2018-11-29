@@ -24,6 +24,8 @@ export class ListMoviesComponent implements OnInit {
   private _openMovie: boolean;
   private _movie: MovieResponse;
   private _credits: CreditsResult;
+  private _estFavoris: boolean;
+
   constructor (private tmdb: TmdbService, private playlistSvc: PlaylistService, public dialog: MatDialog) {
     this._openMovie = false;
   }
@@ -42,7 +44,6 @@ export class ListMoviesComponent implements OnInit {
     return this._openMovie;
   }
   openMovie(elem: any) {
-    let movie: boolean;
     setTimeout( () =>
         this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
           .getMovie(elem.id)
@@ -51,6 +52,7 @@ export class ListMoviesComponent implements OnInit {
             if (m.title === elem.title) {
               this._openMovie = true;
             }
+            this._movie.estFavoris = this.playlistSvc.estFavoris(elem.id);
           } )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
@@ -69,6 +71,10 @@ export class ListMoviesComponent implements OnInit {
 
   get credits(): CreditsResult {
     return this._credits;
+  }
+
+  get estFavoris(): boolean {
+    return this._estFavoris;
   }
 
   closeMovie() {

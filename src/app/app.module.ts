@@ -8,7 +8,7 @@ import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFireDatabaseModule} from '@angular/fire/database';
-import { UserComponent } from './user/user.component';
+import { UserListeComponent } from './user/user-liste.component';
 import { MovieComponent } from './movie/movie.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ListMoviesComponent } from './list-movies/list-movies.component';
@@ -24,7 +24,7 @@ import { PopupComponent } from './popup/popup.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomepageComponent},
   { path: 'research', component: ResearchComponent },
-  { path: 'user', component: UserComponent },
+  { path: 'user', component: UserListeComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '***', component: HomepageComponent}
 ];
@@ -33,7 +33,7 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponent,
+    UserListeComponent,
     MovieComponent,
     NavbarComponent,
     ListMoviesComponent,
