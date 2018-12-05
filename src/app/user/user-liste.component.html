@@ -15,7 +15,7 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(liste, liste.name )">{{ liste.name }}</label>
+        <label (click)="afficherListe(liste, liste.name, this )">{{ liste.name }}</label>
       </section>
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>

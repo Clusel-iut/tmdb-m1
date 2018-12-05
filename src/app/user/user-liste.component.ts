@@ -20,12 +20,13 @@ export class UserListeComponent implements OnInit {
   private _nameList: string;
   private _list: LISTE;
   private _open: boolean;
-
+  private _cpt: number;
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
     });
     this._open = false;
+    this._cpt = 0;
   }
 
   ngOnInit() {
@@ -47,7 +48,7 @@ export class UserListeComponent implements OnInit {
     return this.playlistSvc.getFavoris;
   }
 
-  afficherListe(list: LISTE, nameList: string) {
+  afficherListe(list: LISTE, nameList: string, element: HTMLLabelElement) {
     this._listMovies = {results: []};
     this._list = list;
     this._list.films.forEach(filmId => {
@@ -63,6 +64,7 @@ export class UserListeComponent implements OnInit {
       });
       this._nameList = nameList;
       this._open = true;
+      element.a
   }
 
   get listMovies(): TrendingResult {
@@ -79,6 +81,10 @@ export class UserListeComponent implements OnInit {
 
   get open(): boolean {
     return this._open;
+  }
+
+  get cpt(): number {
+    return this._cpt += 1;
   }
 }
 
