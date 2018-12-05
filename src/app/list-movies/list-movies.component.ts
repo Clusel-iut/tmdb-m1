@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {TrendingResult} from '../tmdb-data/Trending';
+import {TrendingDetails, TrendingResult} from '../tmdb-data/Trending';
 import {TmdbService} from '../tmdb.service';
 import {MovieResponse} from '../tmdb-data/Movie';
 import {CreditsResult} from '../tmdb-data/MovieCredits';
@@ -94,7 +94,16 @@ export class ListMoviesComponent implements OnInit {
   }
 
   supprimerMoviePlaylist(nameMovie: string, filmId: string) {
-    this.playlistSvc.supprimerListeFilm(this._list, filmId);
+    this.playlistSvc.supprimerFilmListe(this._list, filmId);
+    let index = -1;
+    this._trendings.results.forEach(value => {
+      if (value.id === Number(filmId)) {
+        index = this._trendings.results.indexOf(value);
+      }
+    });
+    if (index !== -1) {
+      this._trendings.results.splice(index);
+    }
     this.openModal(nameMovie, false);
   }
 
