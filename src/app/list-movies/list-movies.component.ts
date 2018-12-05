@@ -102,7 +102,7 @@ export class ListMoviesComponent implements OnInit {
       }
     });
     if (index !== -1) {
-      this._trendings.results.splice(index);
+      this._trendings.results.splice(index, 1);
     }
     this.openModal(nameMovie, false);
   }
