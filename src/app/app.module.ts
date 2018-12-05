@@ -24,7 +24,7 @@ import { PopupComponent } from './popup/popup.component';
 const appRoutes: Routes = [
   { path: 'home', component: HomepageComponent},
   { path: 'research', component: ResearchComponent },
-  { path: 'user', component: UserListeComponent },
+  { path: 'playlist', component: UserListeComponent },
   { path: '',   redirectTo: '/home', pathMatch: 'full' },
   { path: '***', component: HomepageComponent}
 ];

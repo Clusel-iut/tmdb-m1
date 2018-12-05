@@ -18,7 +18,7 @@
         <label (click)="afficherListe(liste, liste.name )">{{ liste.name }}</label>
       </section>
       <form (submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
-        <p>Ajouter liste : </p>
+        <p>Créer une nouvelle liste : </p>
         <div class="form-group">
           <input #playlist name="name" type="text" class="form-control" required>
         </div>

@@ -5,7 +5,7 @@
   <h1 class="navbar-brand col-md-7">MovieDatabase </h1>
   <section class="navbar col-md-3" *ngIf="user">
     <h1 class="navbar-brand ">{{ userName}} </h1>
-    <a class="navbar-brand " id="connected"  routerLink="/user" routerLinkActive="active"> <img src="../assets/connected.png"/></a>
+    <a class="navbar-brand " id="connected"  routerLink="/playlist" routerLinkActive="active"> <img src="../assets/connected.png"/></a>
     <a class="navbar-brand " id="logout"  routerLink="/home" routerLinkActive="active" (click)="logout()"> <img src="../assets/logout.png"/></a>
   </section>
   <a *ngIf="!user" class="navbar-brand col-md-2" id="connect" (click)="login()" > <img src="../assets/connect.png"/></a>
