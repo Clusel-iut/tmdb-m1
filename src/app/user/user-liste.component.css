@@ -49,3 +49,54 @@ hr{
   margin-right: 20%;
 
 }
+
+#nameList{
+  display: inline-block;
+  position: relative;
+  margin-top: 1%;
+}
+
+#shareForm{
+  display: inline-block;
+  position: relative;
+  float: right;
+  margin-right: 15%;
+  margin-top: 1%;
+}
+
+#buttonShare{
+  margin-left: 11%;
+  position: absolute;
+  display: inline-flex;
+  color: whitesmoke;
+  font-size: 20px;
+  margin-bottom: 1%;
+  width: 50%;
+}
+
+#inputMail{
+  height: 46px;
+}
+
+hr{
+  margin-left: 17%;
+}
+
+#listeSection{
+  margin-top: 10%;
+}
+
+#addListForm{
+  margin-top: 5%;
+}
+
+.btn{
+  width: 79%;
+  margin-left: 10%;
+  border-radius: 0;
+  border-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+

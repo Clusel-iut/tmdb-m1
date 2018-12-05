@@ -19,11 +19,13 @@ export class UserListeComponent implements OnInit {
   private _listMovies: TrendingResult;
   private _nameList: string;
   private _list: LISTE;
+  private _open: boolean;
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
     });
+    this._open = false;
   }
 
   ngOnInit() {
@@ -60,6 +62,7 @@ export class UserListeComponent implements OnInit {
           1000 );
       });
       this._nameList = nameList;
+      this._open = true;
   }
 
   get listMovies(): TrendingResult {
@@ -74,6 +77,9 @@ export class UserListeComponent implements OnInit {
     return this._list;
   }
 
+  get open(): boolean {
+    return this._open;
+  }
 }
 
 
