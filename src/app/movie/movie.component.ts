@@ -67,7 +67,7 @@ export class MovieComponent implements OnInit {
 
   public supprimerFilmListe(list: LISTE, filmId: string) {
     this.playlistSvc.supprimerFilmListe(list, filmId);
-    if(list.name === 'Favoris') {
+    if (list.name === 'Favoris') {
       this.movie.estFavoris = !this.movie.estFavoris;
     }
     this.openModal(list, false);

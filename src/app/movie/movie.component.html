@@ -9,17 +9,20 @@
 
       <div *ngIf="user">
         <div id="dropdownDiv">
-          <button *ngIf="open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1">
-            <img src="../assets/open.png">
-          </button>
-          <button *ngIf="!open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2">
-            <img src="../assets/close.png">
-          </button>
-          <ul *ngIf="!open" class="dropdown-menu" style="display:contents" aria-labelledby="dropdownMenu">
-            <li *ngFor="let liste of listes"><a (click)="ajouterFilmListe(liste, movie.id.toString(), true)"><img src="../assets/open.png"/> {{ liste.name }}</a></li>
-            <li><a routerLink="/user" routerLinkActive="active"><img src="../assets/open.png"/>Ajouter une playlist</a></li>
-          </ul>
 
+        <button *ngIf="open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1">
+          <img src="../assets/open.png">
+        </button>
+        <button *ngIf="!open&&user" (click)="switch()" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2">
+          <img src="../assets/close.png">
+        </button>
+        <ul *ngIf="!open" class="dropdown-menu" style="display:contents" aria-labelledby="dropdownMenu">
+          <li *ngFor="let liste of listes">
+            <a (click)="ajouterFilmListe(liste, movie.id.toString(), true)"><img src="../assets/open.png"/> {{ liste.name }}</a>
+            <a (click)="supprimerFilmListe(liste, movie.id.toString())"><img src="../assets/close.png"/> {{ liste.name }}</a>
+          </li>
+          <li><a routerLink="/user" routerLinkActive="active"><img src="../assets/open.png"/>Ajouter une playlist</a></li>
+        </ul>
         </div>
         <div id="favButton">
           <img *ngIf="!movie.estFavoris" class="add" src="../assets/add_fav2.png" (click)="ajouterFilmListe(favoris, movie.id.toString(), false)">

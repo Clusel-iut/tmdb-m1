@@ -87,7 +87,7 @@ export class PlaylistService {
       films: liste.films
     };
     const index = updateListe.films.indexOf(filmId);
-    updateListe.films.splice(index);
+    updateListe.films.splice(index, 1);
     this._playlists.update(liste.$key, updateListe);
   }
 
