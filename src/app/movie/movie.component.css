@@ -45,3 +45,13 @@ h3, label, h1, h4, li, .description, div{
 h1{
   background-color: #e50914;
 }
+
+#dropdownDiv{
+  display: inline-block;
+  float: left;
+}
+
+#favButton{
+  display: inline-block;
+  float: left;
+}

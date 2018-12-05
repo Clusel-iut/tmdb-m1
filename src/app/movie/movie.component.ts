@@ -73,14 +73,14 @@ export class MovieComponent implements OnInit {
     this.openModal(list, false);
   }
 
-  openModal(list: any, Ajoute: boolean) {
+  openModal(list: LISTE, Ajoute: boolean) {
     const dialogConfig = new MatDialogConfig();
 
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
     dialogConfig.data = {
       title: this.movie.title,
-      list: list.payload.val().name,
+      list: list.name,
       estAjoute: Ajoute
     };
     const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
