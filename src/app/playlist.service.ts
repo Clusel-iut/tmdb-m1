@@ -6,6 +6,8 @@ import {TmdbService} from './tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {LISTE} from './tmdb-data/Liste';
+import {MovieResponse} from './tmdb-data/Movie';
+import {TrendingDetails} from './tmdb-data/Trending';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +17,7 @@ export class PlaylistService {
   private _user: User;
   private basePath: string;
   private favoris: LISTE;
-  private listes: LISTE[] = [];
+  private listes: LISTE[];
 
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
@@ -23,7 +25,7 @@ export class PlaylistService {
       this.basePath = `${u.uid}/playlists`;
       this._playlists = this.db.list(this.basePath);
 
-      this._playlists.snapshotChanges().subscribe( data => {
+      this._playlists.snapshotChanges().subscribe( data => { this.listes = [];
         data.forEach(value => {
           const liste: LISTE = {
             $key: value.key,
@@ -80,7 +82,7 @@ export class PlaylistService {
     this._playlists.update(liste.$key, updateListe);
   }
 
-  public supprimerListeFilm(liste: LISTE, filmId: string) {
+  public supprimerFilmListe(liste: LISTE, filmId: string) {
     const updateListe: LISTE = {
       name: liste.name,
       films: liste.films
