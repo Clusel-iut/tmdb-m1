@@ -1,13 +1,10 @@
 import {Injectable} from '@angular/core';
 import {AngularFireDatabase, AngularFireList} from '@angular/fire/database';
 import {User} from 'firebase';
-import {Observable} from 'rxjs';
 import {TmdbService} from './tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {LISTE} from './tmdb-data/Liste';
-import {MovieResponse} from './tmdb-data/Movie';
-import {TrendingDetails} from './tmdb-data/Trending';
 
 @Injectable({
   providedIn: 'root'
@@ -78,8 +75,10 @@ export class PlaylistService {
     if (liste.films !== []) {
       updateListe.films = liste.films;
     }
-    updateListe.films.push(filmId);
-    this._playlists.update(liste.$key, updateListe);
+    if (this.estDansListe(liste, filmId) === false) {
+      updateListe.films.push(filmId);
+      this._playlists.update(liste.$key, updateListe);
+    }
   }
 
   public supprimerFilmListe(liste: LISTE, filmId: string) {
@@ -104,7 +103,7 @@ export class PlaylistService {
     let exist = false;
 
     liste.films.forEach(value => {
-      if (value === filmId) {
+      if (Number(value) === Number(filmId)) {
         exist = true;
       }});
 
@@ -112,6 +111,7 @@ export class PlaylistService {
   }
 
   public estFavoris(filmId: string): boolean {
-    return this.estDansListe(this.favoris, filmId);
+    const test = this.estDansListe(this.favoris, filmId);
+    return test;
   }
 }
