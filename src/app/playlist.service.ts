@@ -157,17 +157,11 @@ export class PlaylistService {
         });
     });
     setTimeout( () => {
-        console.log("----------------+++++++++++++++++++++++");
-        console.log(listesPartageesTab);
         listesPartageesTab.forEach(value3 => {
-          console.log("----------------+++++++++++++++++++++++");
           const basePath = `${value3.uid}/playlists`;
-          console.log("----------------+++++++++++++++++++++++");
           this.db.list(basePath).snapshotChanges().subscribe( data1 => {
             this.listesPartagees = [];
-            console.log("----------------+++++++++++++++++++++++");
             data1.forEach(value1 => {
-              console.log("----------------+++++++++++++++++++++++");
               if (value1.key === value3.key) {
                 const liste: LISTE = {
                   $key: value1.key,
