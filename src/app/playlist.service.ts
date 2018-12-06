@@ -5,6 +5,7 @@ import {TmdbService} from './tmdb.service';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {LISTE} from './tmdb-data/Liste';
+import {TrendingResult} from './tmdb-data/Trending';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,9 @@ export class PlaylistService {
       this.basePath = `${u.uid}/playlists`;
       this._playlists = this.db.list(this.basePath);
 
-      this._playlists.snapshotChanges().subscribe( data => { this.listes = [];
+      this._playlists.snapshotChanges().subscribe( data => {
+        this.listes = [];
+        this.favoris = undefined;
         data.forEach(value => {
           const liste: LISTE = {
             $key: value.key,
@@ -39,8 +42,8 @@ export class PlaylistService {
           }
         });
       });
-
-      this.ajouterListe('Favoris');
+      setTimeout( () =>
+        this.ajouterListe('Favoris'), 1000 );
     });
   }
 
@@ -49,11 +52,16 @@ export class PlaylistService {
       event.preventDefault();
     }
     let exist = false;
-    this.listes.forEach(list => {
-      if (list.name === listName) {
-        exist = true;
-      }
-    });
+    if (this.listes !== undefined) {
+      this.listes.forEach(list => {
+        if (list.name === listName) {
+          exist = true;
+        }
+      });
+    }
+    if (this.favoris !== undefined && this.favoris.name === listName) {
+      exist = true;
+    }
     if (!exist) {
       const liste: LISTE = {
         name: listName,
