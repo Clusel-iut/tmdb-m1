@@ -53,7 +53,7 @@ export class UserListeComponent implements OnInit {
     return this.playlistSvc.getFavoris;
   }
 
-  afficherListe(list: LISTE, nameList: string, id: string ) {
+  afficherListe(list: LISTE, nameList: string ) {
     this._listMovies = {results: []};
     this._list = list;
     this._list.films.forEach(filmId => {
@@ -72,10 +72,10 @@ export class UserListeComponent implements OnInit {
             .catch(err => console.error('Error getting movie:', err)),
         1000);
     });
-    const label: HTMLElement = document.getElementById(id)[0];
-    alert(label);
+
     this._nameList = nameList;
     this._open = true;
+    document.getElementById(nameList).classList.toggle('selected')
   }
 
   get listMovies(): TrendingResult {

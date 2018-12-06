@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="/src/app/user/user-liste.component.css">
 <div>
   <div class="wrapper">
     <!-- Sidebar -->
@@ -15,7 +16,7 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="cpt" (click)="afficherListe(liste, liste.name, [id] );">{{ liste.name }}</label>
+        <label [id]="liste.name" (click)="afficherListe(liste, liste.name );">{{ liste.name }}</label>
       </section>
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>
@@ -27,7 +28,7 @@
     </div>
   </div>
   <div *ngIf="open" id="affichage">
-    <h1 id="nameList">{{ nameList }}</h1>
+    <h1 #playlistName id="nameList" [id]="nameList">{{ nameList }}</h1>
     <form id="shareForm"(submit)="partagerListe()">
       <input id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>

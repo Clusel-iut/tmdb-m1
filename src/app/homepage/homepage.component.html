@@ -3,13 +3,13 @@
   <hr/>
   <div class="" *ngIf="!!trendingsMovies">
     <h4>Films de la semaine</h4>
-    <app-list-movies [trendings]="trendingsMovies" [start]=0 [end]=8>></app-list-movies>
+    <app-list-movies [trendings]="trendingsMovies" [start]=0 [end]=5>></app-list-movies>
   </div>
 </div>
 <div id="trendingsSeries">
   <div class="text" *ngIf="!!trendingsSeries">
     <h4>Séries de la semaine</h4>
-    <app-list-movies [trendings]="trendingsSeries" [start]=0 [end]=8></app-list-movies>
+    <app-list-movies [trendings]="trendingsSeries" [start]=0 [end]=5></app-list-movies>
   </div>
 </div>
 <section *ngIf="!trendingsMovies&&!trendingsSeries">
