@@ -24,7 +24,7 @@
         <div [id]="liste.name" class="listDiv">
         <label (click)="afficherListe(liste, liste.name ); isNotShare.value='true';">
           {{ liste.name }}
-          <img src="../assets/delete.png"/>
+          <img class="arrow" src="../assets/left_arrow_black.png"/>
         </label>
         </div>
       </section>
@@ -45,14 +45,18 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="liste.name" (click)="afficherListe(liste, liste.name ); isNotShare.value='false';">{{ liste.name }}</label>
+        <div [id]="liste.name" class="listDiv">
+          <label [id]="liste.name" (click)="afficherListe(liste, liste.name ); isNotShare.value='false';">{{ liste.name }}
+            <img class="arrow" src="../assets/left_arrow_black.png"/>
+          </label>
+        </div>
       </section>
     </div>
 
   </div>
   <div *ngIf="open" id="affichage">
     <h1 #playlistName id="nameList">{{ nameList }}</h1>
-    <form id="shareForm"(submit)="partagerListe(list, email.value)">
+    <form *ngIf="isNotShare.value" id="shareForm"(submit)="partagerListe(list, email.value)">
       <input #email id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>
     </form>
