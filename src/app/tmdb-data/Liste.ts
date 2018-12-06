@@ -3,3 +3,9 @@ export interface LISTE {
   films: string[];
   name: string;
 }
+
+export interface LISTEPARTAGE {
+  email: string;
+  key: string;
+  uid: string;
+}

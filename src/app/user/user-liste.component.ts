@@ -6,7 +6,7 @@ import {AngularFireAuth} from '@angular/fire/auth';
 import {filter} from 'rxjs/operators';
 import {PlaylistService} from '../playlist.service';
 import {TrendingDetails, TrendingResult} from '../tmdb-data/Trending';
-import {LISTE} from '../tmdb-data/Liste';
+import {LISTE, LISTEPARTAGE} from '../tmdb-data/Liste';
 
 @Component({
   selector: 'app-user',
@@ -47,6 +47,10 @@ export class UserListeComponent implements OnInit {
 
   get listes(): LISTE[] {
     return this.playlistSvc.getListes;
+  }
+
+  get listesPartagees(): LISTE[] {
+    return this.playlistSvc.getListesPartagees;
   }
 
   get favoris(): LISTE {
@@ -96,6 +100,10 @@ export class UserListeComponent implements OnInit {
 
   get cpt(): number {
     return this._cpt += 1;
+  }
+
+  public partagerListe(liste: LISTE, email: string) {
+    this.playlistSvc.partagerListe(liste, email);
   }
 }
 
