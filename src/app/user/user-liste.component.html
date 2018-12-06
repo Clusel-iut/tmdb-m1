@@ -1,8 +1,7 @@
 <link rel="stylesheet" href="/src/app/user/user-liste.component.css">
 <div>
   <div class="wrapper">
-    <!-- Sidebar -->
-    <div id="sidebar">
+    <div class="sidebar">
       <div class="sidebar-header">
         <h3>Mes listes :</h3>
       </div>
@@ -10,13 +9,23 @@
         <a (click)="suprimerListe(favoris)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(favoris, favoris.name )">{{ favoris.name }}</label>
+        <div [id]="favoris.name" class="listDiv">
+        <label [id]="favoris.name" (click)="afficherListe(favoris, favoris.name )">
+          {{ favoris.name }}
+          <img class="arrow" src="../assets/left_arrow_black.png"/>
+        </label>
+        </div>
       </section>
       <section *ngFor="let liste of listes">
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="liste.name" (click)="afficherListe(liste, liste.name );">{{ liste.name }}</label>
+        <div [id]="liste.name" class="listDiv">
+        <label  (click)="afficherListe(liste, liste.name );">
+          {{ liste.name }}
+          <img class="arrow" src="../assets/left_arrow_black.png"/>
+        </label>
+        </div>
       </section>
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>
@@ -27,7 +36,7 @@
       </form>
     </div>
 
-    <div id="sidebar">
+    <div class="sidebar">
       <div class="sidebar-header">
         <h3>Mes listes partagées:</h3>
       </div>
@@ -41,7 +50,7 @@
 
   </div>
   <div *ngIf="open" id="affichage">
-    <h1 #playlistName id="nameList" [id]="nameList">{{ nameList }}</h1>
+    <h1 #playlistName id="nameList">{{ nameList }}</h1>
     <form id="shareForm"(submit)="partagerListe(list, email.value)">
       <input #email id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>

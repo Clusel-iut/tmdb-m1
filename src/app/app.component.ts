@@ -2,13 +2,9 @@ import { Component } from '@angular/core';
 import {TmdbService} from './tmdb.service';
 import {MovieResponse} from './tmdb-data/Movie';
 import {AngularFireAuth} from '@angular/fire/auth';
-import {auth, User} from 'firebase';
-import {Observable} from 'rxjs';
-import {AngularFireDatabase} from '@angular/fire/database';
+import {User} from 'firebase';
 import {filter} from 'rxjs/operators';
-import {CreditsResult} from './tmdb-data/MovieCredits';
 import {TrendingResult} from './tmdb-data/Trending';
-import {SearchMovieResponse} from "./tmdb-data/searchMovie";
 
 @Component({
   selector: 'app-root',
@@ -18,34 +14,16 @@ import {SearchMovieResponse} from "./tmdb-data/searchMovie";
 export class AppComponent {
   private _movie: MovieResponse;
   private _user: User;
-  private dbData: Observable<any>;
-  private _credits: CreditsResult;
   private _trendingMovie: TrendingResult;
   private _seriesTrending: TrendingResult;
-  private _searchMovie: SearchMovieResponse;
 
-  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private db: AngularFireDatabase) {
+  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth) {
     this.anAuth.user.pipe(filter( u => !!u )).subscribe( u => {
       this._user = u;
-
-
     });
     setTimeout( () =>
         tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-          .getMovie(13)
-          .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
-          .catch( err => console.error('Error getting movie:', err) ),
-      1000 );
-    setTimeout( () =>
-        tmdb.getCredits(13)
-          .then( (c: CreditsResult) => {
-            this._credits = c;
-            console.log('Actor 13:', c, this, '!');
-          } )
-          .catch( err => console.error('Error getting movie:', err) ),
-      1000 );
-    setTimeout( () =>
-        tmdb.getTrendingMovies()
+          .getTrendingMovies()
           .then( (tm: TrendingResult) => console.log('Trending :', this._trendingMovie = tm) )
           .catch( err => console.error('Error getting movie:', err) ),
       1000 );
@@ -54,43 +32,12 @@ export class AppComponent {
           .then( (ts: TrendingResult) => console.log('Trending :', this._seriesTrending = ts) )
           .catch( err => console.error('Error getting series:', err) ),
       1000 );
-    setTimeout( () =>
-        tmdb.searchMovie('Le roi')
-          .then( (sm: SearchMovieResponse) => console.log('Trending :', this._searchMovie = sm) )
-          .catch( err => console.error('Error getting series:', err) ),
-      1000 );
-
-
-  }
-  get search(): SearchMovieResponse{
-    return this._searchMovie;
   }
   get movie(): MovieResponse {
     return this._movie;
-  }
-
-  get credits(): CreditsResult {
-    return this._credits;
-  }
-
-  get trendingsMovies(): TrendingResult {
-    return this._trendingMovie;
-  }
-
-  get trendingsSeries(): TrendingResult {
-    return this._seriesTrending;
-  }
-
-  getPath(path: string): string {
-    return `https://image.tmdb.org/t/p/w500${path}`;
-  }
-
-  get auth(): AngularFireAuth {
-    return this.anAuth;
   }
 
   get user(): User {
     return this._user;
   }
 }
-// /yE5d3BUhE8hCnkMUJOo1QDoOGNz.jpg

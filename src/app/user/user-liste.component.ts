@@ -7,6 +7,7 @@ import {filter} from 'rxjs/operators';
 import {PlaylistService} from '../playlist.service';
 import {TrendingDetails, TrendingResult} from '../tmdb-data/Trending';
 import {LISTE, LISTEPARTAGE} from '../tmdb-data/Liste';
+import {forEach} from "@angular/router/src/utils/collection";
 
 @Component({
   selector: 'app-user',
@@ -79,7 +80,10 @@ export class UserListeComponent implements OnInit {
 
     this._nameList = nameList;
     this._open = true;
-    document.getElementById(nameList).classList.toggle('selected')
+    for (let i = 0; i < document.getElementsByTagName('div').length; i++){
+      document.getElementsByTagName('div').item(i).classList.remove('selected');
+    }
+    document.getElementById(nameList).classList.toggle('selected');
   }
 
   get listMovies(): TrendingResult {
