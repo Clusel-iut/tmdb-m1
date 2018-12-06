@@ -99,4 +99,7 @@ hr{
   font-weight: bold;
 }
 
+.selected{
+  background-color: #e50914;
+}
 

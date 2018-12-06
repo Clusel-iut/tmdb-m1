@@ -21,16 +21,21 @@ export class UserListeComponent implements OnInit {
   private _list: LISTE;
   private _open: boolean;
   private _cpt: number;
+  private _isSelected: boolean;
   constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
     });
     this._open = false;
     this._cpt = 0;
+    this._isSelected = false;
   }
 
   ngOnInit() {
   }
+
+  get getSelected(){return this._isSelected; }
+  public isSelected(set: boolean): boolean { return this._isSelected = set; }
 
   public ajouterListe(listName: string, event: Event = null) {
     this.playlistSvc.ajouterListe(listName, event);
@@ -48,23 +53,29 @@ export class UserListeComponent implements OnInit {
     return this.playlistSvc.getFavoris;
   }
 
-  afficherListe(list: LISTE, nameList: string, element: HTMLLabelElement) {
+  afficherListe(list: LISTE, nameList: string, id: string ) {
     this._listMovies = {results: []};
     this._list = list;
     this._list.films.forEach(filmId => {
-        setTimeout( () =>
-            this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-              .getMovie(Number(filmId))
-              .then( (m: MovieResponse) => {
-                const tr: TrendingDetails = {poster_path: m.poster_path, id: m.id, title: m.title, original_title: m.original_title};
-                this._listMovies.results.push(tr);
-              } )
-              .catch( err => console.error('Error getting movie:', err) ),
-          1000 );
-      });
-      this._nameList = nameList;
-      this._open = true;
-      element.a
+      setTimeout(() =>
+          this.tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
+            .getMovie(Number(filmId))
+            .then((m: MovieResponse) => {
+              const tr: TrendingDetails = {
+                poster_path: m.poster_path,
+                id: m.id,
+                title: m.title,
+                original_title: m.original_title
+              };
+              this._listMovies.results.push(tr);
+            })
+            .catch(err => console.error('Error getting movie:', err)),
+        1000);
+    });
+    const label: HTMLElement = document.getElementById(id)[0];
+    alert(label);
+    this._nameList = nameList;
+    this._open = true;
   }
 
   get listMovies(): TrendingResult {

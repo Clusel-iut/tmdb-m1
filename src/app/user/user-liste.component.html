@@ -15,7 +15,7 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(liste, liste.name, this )">{{ liste.name }}</label>
+        <label [id]="cpt" (click)="afficherListe(liste, liste.name, [id] );">{{ liste.name }}</label>
       </section>
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>
@@ -38,3 +38,9 @@
     </div>
   </div>
 </div>
+<script>
+  $("label").onclick(function() {
+    $(this).toggleClass("selected");
+    alert("lol");
+  });
+</script>

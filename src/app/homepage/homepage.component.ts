@@ -28,20 +28,6 @@ export class HomepageComponent implements OnInit {
       this._user = u;
     });
     setTimeout( () =>
-        tmdb.init('5feeece3bd352a14822e8426b8af7e01') // Clef de TMDB
-      .getMovie(13)
-      .then( (m: MovieResponse) => console.log('Movie 13:', this._movie = m) )
-      .catch( err => console.error('Error getting movie:', err) ),
-      1000 );
-    setTimeout( () =>
-        tmdb.getCredits(13)
-          .then( (c: CreditsResult) => {
-            this._credits = c;
-            console.log('Actor 13:', c, this, '!');
-          } )
-          .catch( err => console.error('Error getting movie:', err) ),
-      1000 );
-    setTimeout( () =>
         tmdb.getTrendingMovies()
           .then( (tm: TrendingResult) => console.log('Trending :', this._trendingMovie = tm) )
           .catch( err => console.error('Error getting movie:', err) ),
@@ -56,10 +42,6 @@ export class HomepageComponent implements OnInit {
 
   get movie(): MovieResponse {
     return this._movie;
-  }
-
-  get credits(): CreditsResult {
-    return this._credits;
   }
 
   get trendingsMovies(): TrendingResult {
