@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/src/app/user/user-liste.component.css">
+<input #isNotShare id="isShare" type="hidden">
 <div>
   <div class="wrapper">
     <div class="sidebar">
@@ -10,7 +11,7 @@
           <img src="../assets/delete.png"/>
         </a>
         <div [id]="favoris.name" class="listDiv">
-        <label [id]="favoris.name" (click)="afficherListe(favoris, favoris.name )">
+        <label (click)="afficherListe(favoris, favoris.name ); isNotShare.value='true';">
           {{ favoris.name }}
           <img class="arrow" src="../assets/left_arrow_black.png"/>
         </label>
@@ -21,9 +22,9 @@
           <img src="../assets/delete.png"/>
         </a>
         <div [id]="liste.name" class="listDiv">
-        <label  (click)="afficherListe(liste, liste.name );">
+        <label (click)="afficherListe(liste, liste.name ); isNotShare.value='true';">
           {{ liste.name }}
-          <img class="arrow" src="../assets/left_arrow_black.png"/>
+          <img src="../assets/delete.png"/>
         </label>
         </div>
       </section>
@@ -44,7 +45,7 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="liste.name" (click)="afficherListe(liste, liste.name );">{{ liste.name }}</label>
+        <label [id]="liste.name" (click)="afficherListe(liste, liste.name ); isNotShare.value='false';">{{ liste.name }}</label>
       </section>
     </div>
 
@@ -57,13 +58,7 @@
     </form>
     <hr/>
     <div *ngIf="listMovies" class="list">
-      <app-list-movies [trendings]="listMovies" [_list]="list" [_playlist]="true"></app-list-movies>
+      <app-list-movies [trendings]="listMovies" [_list]="list" [_playlist]="isNotShare.value" ></app-list-movies>
     </div>
   </div>
 </div>
-<script>
-  $("label").onclick(function() {
-    $(this).toggleClass("selected");
-    alert("lol");
-  });
-</script>

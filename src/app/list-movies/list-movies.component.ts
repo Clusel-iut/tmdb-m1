@@ -18,7 +18,7 @@ export class ListMoviesComponent implements OnInit {
   @Input('trendings') private _trendings: TrendingResult;
   @Input('start') private _start: number;
   @Input('end') private _end: number;
-  @Input() private _playlist: boolean;
+  @Input() private _playlist: string;
   @Input() private _list: any;
 
   private _openMovie: boolean;
@@ -89,7 +89,7 @@ export class ListMoviesComponent implements OnInit {
     return this._end;
   }
 
-  get playlist(): boolean {
+  get playlist(): string {
     return this._playlist;
   }
 

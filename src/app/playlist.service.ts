@@ -148,7 +148,7 @@ export class PlaylistService {
   }
 
   public getMesListesPartagees() {
-    const listesPartageesTab: LISTEPARTAGE[] = [];
+    const listesPartageesTab = [];
     this._dbListesPartagees.valueChanges().subscribe( (data: LISTEPARTAGE[]) => {
       data.forEach(value => {
         if (value.email === this._user.email) {
@@ -156,25 +156,27 @@ export class PlaylistService {
         }
         });
     });
-
-    listesPartageesTab.forEach(value => {
-      const basePath = `${value.uid}/playlists`;
-      this.db.list(basePath).snapshotChanges().subscribe( data1 => {
-        this.listesPartagees = [];
-        data1.forEach(value1 => {
-          if (value1.key === value.key) {
-            const liste: LISTE = {
-              $key: value1.key,
-              name: (value1.payload.val() as LISTE).name,
-              films: (value1.payload.val() as LISTE).films
-            };
-            if (liste.films === undefined) {
-              liste.films = [];
-            }
-            this.listesPartagees.push(liste);
-          }
+    setTimeout( () => {
+        listesPartageesTab.forEach(value3 => {
+          const basePath = `${value3.uid}/playlists`;
+          this.db.list(basePath).snapshotChanges().subscribe( data1 => {
+            this.listesPartagees = [];
+            data1.forEach(value1 => {
+              if (value1.key === value3.key) {
+                const liste: LISTE = {
+                  $key: value1.key,
+                  name: (value1.payload.val() as LISTE).name,
+                  films: (value1.payload.val() as LISTE).films
+                };
+                if (liste.films === undefined) {
+                  liste.films = [];
+                }
+                this.listesPartagees.push(liste);
+              }
+            });
+          });
         });
-      });
-    });
+      }
+      , 1000 );
   }
 }
