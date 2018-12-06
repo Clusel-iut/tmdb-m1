@@ -72,8 +72,8 @@ export class UserListeComponent implements OnInit {
             .catch(err => console.error('Error getting movie:', err)),
         1000);
     });
-    const label: HTMLElement = document.getElementById(id)[0];
-    alert(label);
+    //const label: HTMLElement = document.getElementById(id)[0];
+    //alert(label);
     this._nameList = nameList;
     this._open = true;
   }
