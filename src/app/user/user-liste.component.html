@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/src/app/user/user-liste.component.css">
+<input #isNotShare id="isShare" type="hidden">
 <div>
   <div class="wrapper">
     <!-- Sidebar -->
@@ -10,13 +11,13 @@
         <a (click)="suprimerListe(favoris)">
           <img src="../assets/delete.png"/>
         </a>
-        <label (click)="afficherListe(favoris, favoris.name )">{{ favoris.name }}</label>
+        <label (click)="afficherListe(favoris, favoris.name ); isNotShare.value='true';">{{ favoris.name }}</label>
       </section>
       <section *ngFor="let liste of listes">
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="liste.name" (click)="afficherListe(liste, liste.name );">{{ liste.name }}</label>
+        <label [id]="liste.name" (click)="afficherListe(liste, liste.name ); isNotShare.value='true';">{{ liste.name }}</label>
       </section>
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>
@@ -35,7 +36,7 @@
         <a (click)="suprimerListe(liste)">
           <img src="../assets/delete.png"/>
         </a>
-        <label [id]="liste.name" (click)="afficherListe(liste, liste.name );">{{ liste.name }}</label>
+        <label [id]="liste.name" (click)="afficherListe(liste, liste.name ); isNotShare.value='false';">{{ liste.name }}</label>
       </section>
     </div>
 
@@ -48,7 +49,7 @@
     </form>
     <hr/>
     <div *ngIf="listMovies" class="list">
-      <app-list-movies [trendings]="listMovies" [_list]="list" [_playlist]="true"></app-list-movies>
+      <app-list-movies [trendings]="listMovies" [_list]="list" [_playlist]="isNotShare.value" ></app-list-movies>
     </div>
   </div>
 </div>
