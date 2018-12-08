@@ -90,6 +90,10 @@ export class MovieComponent implements OnInit {
     });
   }
 
+  public estDansListe(liste: LISTE): boolean {
+    return this.playlistSvc.estDansListe(liste, this._movie.id.toString());
+  }
+
   get listes(): LISTE[] {
     return this.playlistSvc.getListes;
   }

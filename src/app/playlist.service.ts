@@ -158,9 +158,9 @@ export class PlaylistService {
     });
     setTimeout( () => {
         listesPartageesTab.forEach(value3 => {
+          this.listesPartagees = [];
           const basePath = `${value3.uid}/playlists`;
           this.db.list(basePath).snapshotChanges().subscribe( data1 => {
-            this.listesPartagees = [];
             data1.forEach(value1 => {
               if (value1.key === value3.key) {
                 const liste: LISTE = {
@@ -178,5 +178,17 @@ export class PlaylistService {
         });
       }
       , 1000 );
+  }
+
+  public supprimerListePartagee(liste: LISTE) {
+    this._dbListesPartagees.snapshotChanges().subscribe( data => {
+      data.forEach(value => {
+        if (value.payload.val().email === this._user.email && value.payload.val().key === liste.$key) {
+          this._dbListesPartagees.remove(value.key);
+        }
+      });
+    });
+    const index = this.listesPartagees.indexOf(liste);
+    this.listesPartagees.splice(index, 1);
   }
 }

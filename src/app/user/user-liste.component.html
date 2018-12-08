@@ -42,7 +42,7 @@
         <h3>Mes listes partagées:</h3>
       </div>
       <section *ngFor="let liste of listesPartagees">
-        <a (click)="suprimerListe(liste)">
+        <a (click)="supprimerListePartagee(liste)">
           <img src="../assets/delete.png"/>
         </a>
         <div [id]="liste.name" class="listDiv">
@@ -56,7 +56,7 @@
   </div>
   <div *ngIf="open" id="affichage">
     <h1 #playlistName id="nameList">{{ nameList }}</h1>
-    <form *ngIf="isNotShare.value" id="shareForm"(submit)="partagerListe(list, email.value)">
+    <form *ngIf="isNotShare.value === 'true'" id="shareForm"(submit)="partagerListe(list, email.value)">
       <input #email id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>
     </form>

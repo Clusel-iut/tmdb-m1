@@ -109,6 +109,10 @@ export class UserListeComponent implements OnInit {
   public partagerListe(liste: LISTE, email: string) {
     this.playlistSvc.partagerListe(liste, email);
   }
+
+  public supprimerListePartagee(liste: LISTE) {
+    this.playlistSvc.supprimerListePartagee(liste);
+  }
 }
 
 
