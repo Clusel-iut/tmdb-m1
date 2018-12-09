@@ -15,6 +15,11 @@ ul{
 li {
   margin: 10px;
 }
+
+li:hover{
+  background-color: #6b6363;
+  cursor: pointer;
+}
 li img{
   margin-right: 5px;
 }
@@ -56,6 +61,17 @@ h1{
   float: left;
   margin-top: 7px;
   margin-right: 15px;
+}
+
+#addButton{
+  color: #000;
+}
+
+#addButton:hover{
+  cursor: pointer;
+  background-color: #333333;
+  color: #cccccc;
+
 }
 
 #listsButtons{

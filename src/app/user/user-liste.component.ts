@@ -8,6 +8,8 @@ import {PlaylistService} from '../playlist.service';
 import {TrendingDetails, TrendingResult} from '../tmdb-data/Trending';
 import {LISTE, LISTEPARTAGE} from '../tmdb-data/Liste';
 import {forEach} from "@angular/router/src/utils/collection";
+import {MatDialog, MatDialogConfig} from '@angular/material';
+import {PopupComponent} from '../popup/popup.component';
 
 @Component({
   selector: 'app-user',
@@ -23,7 +25,7 @@ export class UserListeComponent implements OnInit {
   private _open: boolean;
   private _cpt: number;
   private _isSelected: boolean;
-  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService) {
+  constructor(private tmdb: TmdbService, public anAuth: AngularFireAuth, private playlistSvc: PlaylistService, public dialog: MatDialog) {
     this.anAuth.user.pipe(filter(u => !!u)).subscribe(u => {
       this._user = u;
     });
@@ -108,10 +110,29 @@ export class UserListeComponent implements OnInit {
 
   public partagerListe(liste: LISTE, email: string) {
     this.playlistSvc.partagerListe(liste, email);
+    this.openModal(liste, true);
   }
 
   public supprimerListePartagee(liste: LISTE) {
     this.playlistSvc.supprimerListePartagee(liste);
+    this.openModal(liste, false);
+  }
+
+  openModal(list: LISTE, ajout: boolean) {
+    const dialogConfig = new MatDialogConfig();
+
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = {
+      title: list.name,
+      share: true,
+      estAjoute: ajout
+    };
+    const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialog was closed');
+      console.log(result);
+    });
   }
 }
 

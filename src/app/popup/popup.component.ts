@@ -11,11 +11,13 @@ export class PopupComponent {
   public title: String;
   public list: String;
   public estAjoute: boolean;
+  public share: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     this.title = data.title;
     this.list = data.list;
     this.estAjoute = data.estAjoute;
+    this.share = data.share;
 
     console.log(data);
   }
