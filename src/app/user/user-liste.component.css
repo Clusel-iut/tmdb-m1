@@ -107,8 +107,8 @@ hr{
 .arrow{
   color: white;
   display: inline-block;
-  position: fixed;
   margin-left: 6%;
+  position: absolute;
   margin-top: -1.4%;
   float: right;
 }
@@ -118,6 +118,16 @@ hr{
   width: 83%;
 }
 
+.listDiv:hover, .listDiv label:hover{
+  cursor: pointer;
+  color: #e50914;
+}
 label{
   width: max-content;
+}
+
+.delete:hover{
+  cursor: pointer;
+  background-color: snow;
+
 }

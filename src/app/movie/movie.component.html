@@ -24,7 +24,6 @@
               <a *ngIf="!estDansListe(liste)" (click)="ajouterFilmListe(liste, movie.id.toString(), true)"><img src="../assets/open.png"/> {{ liste.name }}</a>
               <a *ngIf="estDansListe(liste)" (click)="supprimerFilmListe(liste, movie.id.toString())"><img src="../assets/close.png"/> {{ liste.name }}</a>
             </li>
-            <!--<li><a routerLink="/user" routerLinkActive="active"><img src="../assets/open.png"/>Ajouter une playlist</a></li>-->
               <li><button id="addButton" routerLink="/playlist" routerLinkActive="active">Ajouter une playlist</button></li>
           </ul>
         </div>
