@@ -148,8 +148,9 @@ export class PlaylistService {
   }
 
   public getMesListesPartagees() {
-    const listesPartageesTab = [];
+    let listesPartageesTab = [];
     this._dbListesPartagees.valueChanges().subscribe( (data: LISTEPARTAGE[]) => {
+      listesPartageesTab = [];
       data.forEach(value => {
         if (value.email === this._user.email) {
           listesPartageesTab.push(value);
@@ -157,6 +158,7 @@ export class PlaylistService {
         });
     });
     setTimeout( () => {
+        this.listesPartagees = [];
         listesPartageesTab.forEach(value3 => {
           this.listesPartagees = [];
           const basePath = `${value3.uid}/playlists`;
