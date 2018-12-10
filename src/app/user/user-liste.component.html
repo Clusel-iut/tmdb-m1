@@ -56,7 +56,7 @@
   </div>
   <div *ngIf="open" id="affichage">
     <h1 #playlistName id="nameList">{{ nameList }}</h1>
-    <form *ngIf="isNotShare.value === 'true'" id="shareForm"(submit)="partagerListe(list, email.value)">
+    <form *ngIf="isNotShare.value === 'true'" id="shareForm"(submit)="partagerListe(list, email.value); $event.preventDefault(); email.value = '';">
       <input #email id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>
     </form>

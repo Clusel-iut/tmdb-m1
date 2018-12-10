@@ -81,7 +81,8 @@ export class MovieComponent implements OnInit {
     dialogConfig.data = {
       title: this.movie.title,
       list: list.name,
-      estAjoute: Ajoute
+      estAjoute: Ajoute,
+      share: false
     };
     const dialogRef = this.dialog.open(PopupComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(result => {

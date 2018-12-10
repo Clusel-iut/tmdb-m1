@@ -1,8 +1,16 @@
-<h2 *ngIf="estAjoute" mat-dialog-title><b>Ajout d'un film</b></h2>
-<mat-dialog-content *ngIf="estAjoute">Le film <b>{{title}}</b> a été ajouté dans la liste <b>"{{list}}</b>"</mat-dialog-content>
+<h2 *ngIf="estAjoute && !share" mat-dialog-title><b>Ajout d'un film</b></h2>
+<mat-dialog-content *ngIf="estAjoute && !share">Le film <b>{{title}}</b> a été ajouté dans la liste <b>"{{list}}</b>"</mat-dialog-content>
 
-<h2 *ngIf="!estAjoute" mat-dialog-title><b>Suppression de film</b></h2>
-<mat-dialog-content *ngIf="!estAjoute">Le film <b>{{title}}</b> a été supprimé de la liste !</mat-dialog-content>
+<h2 *ngIf="!estAjoute && !share" mat-dialog-title><b>Suppression de film</b></h2>
+<mat-dialog-content *ngIf="!estAjoute && !share">Le film <b>{{title}}</b> a été supprimé de la liste !</mat-dialog-content>
+
+<h2 *ngIf="estAjoute && share" mat-dialog-title><b>Partage de listes de films</b></h2>
+<mat-dialog-content *ngIf="estAjoute && share">La liste <b>{{title}}</b> a été partagée !</mat-dialog-content>
+
+<h2 *ngIf="!estAjoute && share" mat-dialog-title><b>Partage de listes de films</b></h2>
+<mat-dialog-content *ngIf="!estAjoute && share">La liste <b>{{title}}</b> partagée a été supprimée !</mat-dialog-content>
+
+
 <mat-dialog-actions>
   <button mat-button [mat-dialog-close]='true'>OK</button>
 </mat-dialog-actions>
