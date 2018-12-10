@@ -46,23 +46,25 @@ img{
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   background-color: #333333;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
 }
-.remove.close{
-  height: 15px;
-  width: 15px;
-}
-/* The Close Button */
+
 .close {
   color: #f5f5f5;
   float: right;
   height: 30px;
   width: 30px;
   margin-left: 97%;
+  opacity: inherit;
+
+}
+
+.remove.close{
+  background-color: white;
 }
 
 .close:hover,
@@ -74,4 +76,7 @@ img{
 
 #noresult {
   color: #f4f4f4f4;
+}
+.remove{
+  position: absolute;
 }

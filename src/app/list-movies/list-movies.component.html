@@ -6,8 +6,8 @@
   <div *ngFor="let elem of trendings.results | slice:start:end">
 
     <div class="gallery" >
-      <a *ngIf="playlist === 'true'">
-        <img class="close" style="height:30px;width:30px;" src="../assets/delete_movie.png" (click)="supprimerMoviePlaylist(elem.title, elem.id)"/>
+      <a class="remove" *ngIf="playlist === 'true'">
+        <img class="close" style="height:30px;width:30px;" src="../assets/close_button.png" (click)="supprimerMoviePlaylist(elem.title, elem.id)"/>
       </a>
       <div (click)="openMovie(elem)">
         <img [src]="getPath(elem.poster_path)">
