@@ -31,7 +31,7 @@
       <form id="addListForm"(submit)="ajouterListe(playlist.value, $event); playlist.value = '';">
         <p>Créer une nouvelle liste : </p>
         <div class="form-group">
-          <input #playlist name="name" type="text" size="18" required>
+          <input #playlist placeholder="Nom de la liste" name="name" type="text" size="18" required>
         </div>
         <button type="submit" class="btn btn-default">Ajouter</button>
       </form>
@@ -57,7 +57,7 @@
   <div *ngIf="open" id="affichage">
     <h1 #playlistName id="nameList">{{ nameList }}</h1>
     <form *ngIf="isNotShare.value === 'true'" id="shareForm"(submit)="partagerListe(list, email.value); $event.preventDefault(); email.value = '';">
-      <input #email id="inputMail" size="30">
+      <input #email placeholder="Email du compte destinataire" id="inputMail" size="30">
       <button id="buttonShare" type="submit" class="btn btn-default">Partager <img src="../assets/share_arrow.png"/></button>
     </form>
     <hr/>
